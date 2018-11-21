@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/homepage', 'HomepageController@index  ')->name('home');
+Route::get('/allevents', 'AllEventsController@index  ')->name('allevents');
+Route::get('/myeventsentries', 'MyEvetsEntriesController@index  ')->name('myeventsentries');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/MyEventsController', 'MyEventsController@index')->name('myeventscontroller');
