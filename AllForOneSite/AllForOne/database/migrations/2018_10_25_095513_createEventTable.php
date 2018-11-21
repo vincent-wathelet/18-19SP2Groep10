@@ -17,7 +17,6 @@ class CreateEventTable extends Migration
 
             $table->integer('id',true,true);
             $table->integer('categorieId',false,true);
-            $table->integer('name');
             $table->string('naam');
             $table->integer('lokaalId',false,true);
             $table->integer('maxInschrijvingen');
