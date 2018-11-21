@@ -16,7 +16,7 @@ class CreateTabelOrganisator extends Migration
         Schema::create('organisatoren', function (Blueprint $table) {
             $table->integer('eventId',false,true);
             $table->integer('userId',false,true);
-            $table->string('titel');
+            $table->enum('titel' , array('Hoofdorganisator','MedeOrgainsator','bijzitter'));
             $table->foreign('eventId')->references('id')->on('event');
             $table->foreign('userId')->references('id')->on('users');
             $table->timestamps();
