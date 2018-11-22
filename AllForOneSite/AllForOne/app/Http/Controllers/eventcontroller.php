@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorie;
 use Illuminate\Http\Request;
 
-class AllEventsController extends Controller
+class eventcontroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $categories = Categorie::all();
-        return view("allEvents")->with('categories',$categories);
-    }
+
 
     /**
      * Show the form for creating a new resource.
