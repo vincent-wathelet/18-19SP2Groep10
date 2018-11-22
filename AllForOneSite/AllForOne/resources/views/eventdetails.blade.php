@@ -12,7 +12,7 @@
 
 <h1>My Events Details</h1>
 
-<form name="eventform" id="eventform" action="" method="POST">
+<form name="eventform" id="eventform" action="eventdetails.blade.php" method="POST">
         <div class="left">
             Titel
             <input type="text" name="titel" required><br>
@@ -50,7 +50,7 @@
             <button type="button" id="lokalen">Vrije lokalen</button><br>
 
             Description<br>
-            <textarea rows="4" cols="15" name="decription" form="eventform"></textarea>
+            <textarea rows="4" cols="15" name="description" form="eventform"></textarea>
             <br>
             <button type="save" value="Save" id="save">Save</button>
         </div>
