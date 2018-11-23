@@ -13,6 +13,7 @@
 <h1>My Events Details</h1>
 
 <form name="eventform" id="eventform" action="eventdetails.blade.php" method="POST">
+        {{ csrf_field() }}
         <div class="left">
             Titel
             <input type="text" name="titel" required><br>
