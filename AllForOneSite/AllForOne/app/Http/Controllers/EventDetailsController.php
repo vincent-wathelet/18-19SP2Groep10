@@ -23,6 +23,7 @@ class EventDetailsController extends Controller
      */
     public function index()
     {
+
         return view('eventdetails');
     }
 }

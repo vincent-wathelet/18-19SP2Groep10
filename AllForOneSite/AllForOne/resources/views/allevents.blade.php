@@ -38,8 +38,8 @@
                                 <td>{{$event->naam}}</td>
                                 <td>{{$event->date}}</td>
                                 <td>{{$event->lokaal->gebouw}} {{$event->lokaal->lokaal}}</td>
-                                <td><a class="btn" href="">Inschrijven</a></td>
-                                <td><a class="btn" href="">Inschrijven</a></td>
+                                <td><a class="btn btn-success" href="">Inschrijven</a></td>
+                                <td><a class="btn btn-primary" href="allevents/{{$event->id}}"><i class="fas fa-arrow-circle-right"></i></a></td>
                             </tr>
                     @endforeach
                     </table>
