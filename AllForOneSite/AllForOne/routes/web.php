@@ -17,13 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/homepage', 'HomepageController@index  ')->name('home');
-Route::get('/allevents', 'AllEventsController@index  ')->name('allevents');
-Route::get('/myeventsentries', 'MyEvetsEntriesController@index  ')->name('myeventsentries');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/allevents', 'AllEventsController@index')->name('allevents');
+Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
+Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
-Route::get('/MyEventsController', 'MyEventsController@index')->name('myeventscontroller');
-Route::get('/MyEntriesController', 'MyEntriesController@index')->name('myentries');
-Route::get('/EventDetailsController', 'EventDetailsController@index')->name('myeventdetails');
-Route::get('/MyEventsController', 'MyEventsController@index')->name('myeventscontroller');
-Route::get('/MyEntriesController', 'MyEntriesController@index')->name('myentries');
-Route::get('/EventDetailsController', 'EventDetailsController@index')->name('myeventdetails');
+Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
+Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
+Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
+Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
+Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
+Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
