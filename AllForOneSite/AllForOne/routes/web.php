@@ -28,3 +28,10 @@ Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetail
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
+
+Route::get('/myevents', 'EvetsEntriesController@index')->name('myevents');
+Route::get('myevents/create', 'EvetsEntriesController@create')->name('myevents_create');
+Route::post('myevents/save/{id?}', 'EvetsEntriesController@save')->name('myevents_save');
+Route::get('myevents/delete/{id}', 'EvetsEntriesController@delete');
+Route::get('myevents/edit/{id}', 'EvetsEntriesController@edit');
+Route::get('myevents/show/{id}', 'EvetsEntriesController@show');
