@@ -15,23 +15,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('logout', 'Auth\LoginController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/allevents', 'AllEventsController@index')->name('allevents');
 Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
-Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
+//Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
-Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
+//Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
-Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 
+
+Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
+//Route::get('/myeventsdetail', 'EvetsEntriesController@show')->name('eventsentsdetail');
 Route::get('/myevents', 'EvetsEntriesController@index')->name('myevents');
 Route::get('myevents/create', 'EvetsEntriesController@create')->name('myevents_create');
 Route::post('myevents/save/{id?}', 'EvetsEntriesController@save')->name('myevents_save');
 Route::get('myevents/delete/{id}', 'EvetsEntriesController@delete');
 Route::get('myevents/edit/{id}', 'EvetsEntriesController@edit');
 Route::get('myevents/show/{id}', 'EvetsEntriesController@show');
+Route::get('myevents/accept/{id}', 'EvetsEntriesController@accept');
+Route::get('/myEntries', 'MyEntriesController@index')->name('myentries');
+Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
+
+
+

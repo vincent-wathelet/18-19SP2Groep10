@@ -38,7 +38,7 @@
                                             @foreach($categories as $category)
                                                 <option
                                                         @if (isset($event) && $event->categorieId == $category->id)
-                                                        selected
+                                                            selected
                                                         @endif
                                                         value="{{$category->id}}">{{$category->naam}}</option>
                                             @endforeach
@@ -65,9 +65,9 @@
                                         <input class="form-control"
                                                {{--value="@if (isset($event)) {{$event->addtime($event->date, $event->duur)}}@endif"--}}
                                                name="end_date" id="end_date" placeholder=""
-                                               @if (!isset($event))
+                                                @if (!isset($event))
                                                required
-                                                @endif
+                                               @endif
                                         >
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                     <div class="col-sm-9">
                                         <input type="checkbox" class="icheckbox-primary form-control" name="computer_needed"
                                                data-plugin="iCheck" data-checkbox-class="icheckbox_flat-blue"
-                                        />
+                                                />
                                     </div>
                                 </div>
                                 <div class="form-group">

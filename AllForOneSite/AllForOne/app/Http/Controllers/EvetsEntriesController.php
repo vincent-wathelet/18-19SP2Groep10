@@ -46,6 +46,7 @@ class EvetsEntriesController extends Controller
         return view('eventdetails', compact('categories', 'lokaal'));
     }
 
+
     public function save($id=null, Request $request)
     {
         if ($id) {
@@ -111,6 +112,7 @@ class EvetsEntriesController extends Controller
     }
 
 
+
     public function delete($id) {
         Inschrijving::where('eventid', $id)->delete();
         Event::find($id)->delete();
@@ -120,8 +122,27 @@ class EvetsEntriesController extends Controller
     public function edit($id) {
         $event = Event::find($id);
 
+//        $newdate = $event->addtime('2018-11-24 12:23:00', '0000-01-00 00:00:00');
+//        return $newdate;
+
+
         $categories = Categorie::all();
         $lokaal = Lokaal::all();
         return view('eventdetails', compact('categories', 'lokaal', 'event'));
+    }
+
+    public function accept($id) {
+        $entry = Inschrijving::find($id);
+
+        if($entry->bevestigt == 1) {
+
+            $entry->bevestigt = 0;
+        } else if ($entry->bevestigt == 0) {
+
+            $entry->bevestigt = 1;
+        }
+
+        $entry->save();
+        return redirect()->back();
     }
 }

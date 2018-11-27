@@ -56,7 +56,7 @@
                                         <input type="checkbox" name="inputCheckboxes"
                                                @if($entry->bevestigt == true)
                                                checked
-                                                @endif
+                                               @endif
                                         />
                                         <label></label>
                                         <div class="hide entryid">{{$entry->id}}</div>
@@ -68,7 +68,7 @@
                                         <input type="checkbox" name="inputCheckboxes"
                                                @if($entry->bevestigt == false)
                                                checked
-                                                @endif
+                                               @endif
 
                                         />
                                         <label></label>
