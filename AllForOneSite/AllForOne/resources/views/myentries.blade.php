@@ -26,7 +26,7 @@
                 <hr>
                 <div class="table-responsive">
                     <div class="col-sm-6"><span class="pull-left">Number of subscribers: {{count($entries)}}</span></div>
-                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div>
+                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: {{(int)$event->maxInschrijvingen)-count($entries)}}</span></div>
                     <br>
                     <br>
                     <table class="table table-striped font-size-16">
