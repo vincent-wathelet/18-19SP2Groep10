@@ -1,62 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+@extends('layout')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('global/vendor/icheck/icheck.css')}}">
+    <link rel="stylesheet" href="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.min.css')}}">
+@endsection
 
-    <title>My Event Details</title>
-    <link rel="stylesheet" href="{{ URL::asset('css/EventsCSS.css')}}">
-    <script src="{{ URL::asset('js/EventDetails.js')}}"></script>
+@section('content');
+<div class="page-main container">
 
-</head>
-<body>
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-heading padding-top-15">
+                <div class="row">
+                    <div class="col col-sm-10">
+                        <h2 class="panel-title">My Events</h2>
+                    </div>
 
-<h1>My Events Details</h1>
+                </div>
+            </div>
 
-<form name="eventform" id="eventform" action="" method="POST">
-        <div class="left">
-            Titel
-            <input type="text" name="titel" required><br>
-            Categorie
-            <input type="text" name="categorie" required><br>
+            <div class="panel-body">
+                <hr>
+                <div class="row">
+                    <form
+                            @if(isset($event))
+                            action="{{asset('myevents/save/'.$event->id)}}"
+                            @else
+                            action="{{asset('myevents/save')}}"
+                            @endif
+                            method="post" id="main_form">
+                        <div class="col col-sm-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Categorie: </label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" required name="categorieId">
+                                            <option value="">select category</option>
+                                            @foreach($categories as $category)
+                                                <option
+                                                        @if (isset($event) && $event->categorieId == $category->id)
+                                                            selected
+                                                        @endif
+                                                        value="{{$category->id}}">{{$category->naam}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Title: </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" value="@if (isset($event)) {{$event->naam}}@endif" name="naam" placeholder="Give a title" required>
+                                    </div>
+                                </div>
 
-            Start Datum
-            <input type="date" id="startdatum" min="2018-11-11" required><br>
-            Eind Datum
-            <input type="date" id="einddatum" required><br>
-            Max aantal inschrijvingen
-            <select name="maxinschrijvingen">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select><br>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Start Datum: </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->date))}}@endif" name="start_date" id="start_date" placeholder="" required>
+                                    </div>
+                                </div>
 
-            Auto Accept
-            <input type="checkbox" name="autoaccept" autofocus onlick="return true;" />
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">End Datum: </label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control"
+                                               {{--value="@if (isset($event)) {{$event->addtime($event->date, $event->duur)}}@endif"--}}
+                                               name="end_date" id="end_date" placeholder=""
+                                                @if (!isset($event))
+                                               required
+                                               @endif
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Auto Accept: </label>
+                                    <div class="col-sm-9">
+                                        <input type="checkbox" class="icheckbox-primary form-control" name="autoaccept"
+                                               data-plugin="iCheck" data-checkbox-class="icheckbox_flat-blue"
+                                               @if (isset($event) && $event->autoaccept == true) checked @endif  />
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Max Number subscription: </label>
+                                    <div class="col-sm-8">
+                                        <input type="number"  value="@if (isset($event)){{(int)$event->maxInschrijvingen}}@endif" class="form-control" name="maxInschrijvingen" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Computer Needed: </label>
+                                    <div class="col-sm-9">
+                                        <input type="checkbox" class="icheckbox-primary form-control" name="computer_needed"
+                                               data-plugin="iCheck" data-checkbox-class="icheckbox_flat-blue"
+                                                />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Lokaal: </label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" name="lokaalId" required>
+                                            <option value="">No room</option>
+                                            @foreach($lokaal as $item)
+                                                <option
+                                                        @if (isset($event) && $event->lokaalId == $item->id)
+                                                        selected
+                                                        @endif
+                                                        value="{{$item->id}}">{{$item->lokaal}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{--<input class="form-control" placeholder="" required name="">--}}
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Description: </label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control"  value="" name="description" placeholder="" rows="5" required>@if(isset($event)){{$event->description}}@endif</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary pull-right" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{csrf_field()}}
+                    </form>
+                </div>
+            </div>
+
         </div>
+    </div>
+</div>
+@endsection
 
-        <div class="right">
-            Computer nodig
-            <input type="checkbox" name="computer" checked autofocus onlick="return true;" /><br>
-
-            Lokaal
-            <select name="lokaal">
-                <option value="A1">Audi 1</option>
-                <option value="A2">Audi 2</option>
-                <option value="A3">Audi 3</option>
-                <option value="A4">Audi 4</option>
-            </select>
-
-            <button type="button" id="lokalen">Vrije lokalen</button><br>
-
-            Description<br>
-            <textarea rows="4" cols="15" name="decription" form="eventform"></textarea>
-            <br>
-            <button type="save" value="Save" id="save">Save</button>
-        </div>
+@section('js')
+    <script src="{{ asset('global/vendor/icheck/icheck.min.js')}}"></script>
+    <script src="{{ asset('global/js/components/icheck.js')}}"></script>
+    <script src="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.full.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#start_date').datetimepicker({
+                format:'m/d/Y H:i',
+                onChangeDateTime:logic
+            });
 
 
-</form>
+            if ($('#start_date').val() != '') {
+                $('#end_date').datetimepicker({
+                    format:'m/d/Y H:i',
+                    minDateTime: $('#start_date').datetimepicker('getValue'),
+                })
+            }
 
-</body>
-</html>
+            function logic() {
+                $('#end_date').val($('#start_date').val());
+                $('#end_date').datetimepicker({
+                    format:'m/d/Y H:i',
+                    minDateTime: $('#start_date').datetimepicker('getValue'),
+                    default:  $('#start_date').datetimepicker('getValue'),
+                })
+            }
+            //
+            //
+            // $.getJSON('https://api.ipify.org?format=json', function(data){
+            //     console.log(data.ip);
+            // });
+            //
+            // $.getJSON('http://ipinfo.io', function(data){
+            //     console.log(data);
+            // });
+
+
+        })
+    </script>
+@endsection

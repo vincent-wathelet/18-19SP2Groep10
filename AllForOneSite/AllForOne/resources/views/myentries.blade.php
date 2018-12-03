@@ -1,52 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Entries</title>
-    <link rel="stylesheet" href="{{ URL::asset('css/EventsCSS.css')}}">
-    <script src="{{ URL::asset('js/EventDetails.js')}}"></script>
+@extends('layout')
 
-</head>
-<body>
+@section('css')
+    <link rel="stylesheet" href="{{ asset('global/vendor/icheck/icheck.css')}}">
+    <link rel="stylesheet" href="{{ asset('global/fonts/font-awesome/font-awesome.css')}}">
+@endsection
+@section('content');
+<div class="page-main container">
+    {{--<div class="page-header">--}}
+    {{--<h1 class="page-title">Two Columns</h1>--}}
+    {{--</div>--}}
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-heading padding-top-15">
+                <div class="row">
+                    <div class="col col-sm-10">
+                        <h2 class="panel-title">{{\App\Event::find($id)->naam}}</h2>
+                    </div>
+                    <div class="col col-sm-2 padding-10">
 
-<h1>My Entries</h1>
+                    </div>
+                </div>
+            </div>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th data-type="date">Date</th>
-        <th>Location</th>
-        <th>Accepted</th>
-        <th>Archive</th>
-    </tr>
-    <tr>
-        <td>DeepDive S4/HANA</td>
-        <td>19-01-2019</td>
-        <td>A209</td>
-        <td><input type="checkbox" name="accepted" disabled="disabled"/></td>
-        <td><button>
-            <img src="{{ URL::asset('images/235B97EF-E87E-477B-A501-91AD6CBAE194.png')}}" id="archivebutton">
-        </button></td>
-    </tr>
-    <tr>
-        <td>Dungon And Dragons</td>
-        <td>08-02-2019</td>
-        <td>A0011</td>
-        <td><input type="checkbox" name="accepted" checked disabled="disabled"/></td>
-        <td><button>
-            <img src="{{ URL::asset('images/235B97EF-E87E-477B-A501-91AD6CBAE194.png')}}" id="archivebutton">
-        </button></td>
-    </tr>
-    <tr>
-        <td>HAck The Erasmus</td>
-        <td>05-04-2019</td>
-        <td>C209</td>
-        <td><input type="checkbox" name="accepted" disabled="disabled" /></td>
-        <td><button>
-            <img src="{{ URL::asset('images/235B97EF-E87E-477B-A501-91AD6CBAE194.png')}}" id="archivebutton">
-        </button></td>
-    </tr>
-</table>
+            <div class="panel-body">
+                <hr>
+                <div class="table-responsive">
+                    <div class="col-sm-6"><span class="pull-left">Number of subscribers: {{count($entries)}}</span></div>
+                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div>
+                    <br>
+                    <br>
+                    <table class="table table-striped font-size-16">
+                        <thead>
+                        <tr>
+                            <td>naam</td>
+                            <td class="text-center">acount Status</td>
+                            <td class="text-center">Accepted</td>
+                            <td class="text-center">Geweigerd</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($entries as $entry)
+                            <tr>
+                                <td>{{$entry->user->name}}</td>
+                                <td class="text-center">
+                                    <i
+                                            @if($entry->user->banned == true)
+                                            class="icon fa-check-square"
+                                            @else
+                                            class="icon fa-exclamation-triangle"
+                                            @endif
+                                            aria-hidden="true"></i>
+                                </td>
+                                <td>
+                                    <div class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" name="inputCheckboxes"
+                                               @if($entry->bevestigt == true)
+                                               checked
+                                               @endif
+                                        />
+                                        <label></label>
+                                        <div class="hide entryid">{{$entry->id}}</div>
 
-</body>
-</html>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" name="inputCheckboxes"
+                                               @if($entry->bevestigt == false)
+                                               checked
+                                               @endif
+
+                                        />
+                                        <label></label>
+                                        <div class="hide entryid">{{$entry->id}}</div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@endsection
+
+
+
+@section('js')
+    <script src="{{ asset('global/vendor/icheck/icheck.min.js')}}"></script>
+    <script src="{{ asset('global/js/components/icheck.js')}}"></script>
+    <script>
+        $('[name="inputCheckboxes"]').on('change', function () {
+            id = $(this).parent().find('.entryid').html();
+            // $.ajax({
+            //     url: 'myevents',
+            //
+            // })
+
+            window.location.href = "{{asset('myevents/accept')}}/" + id;
+        })
+    </script>
+@endsection

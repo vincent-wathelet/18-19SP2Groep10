@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Inschrijving;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MyEntriesController extends Controller
 {
@@ -23,6 +25,12 @@ class MyEntriesController extends Controller
      */
     public function index()
     {
-        return view('myentries');
+        $entries = Inschrijving::where('userid', Auth::user()->id)->get();
+        return view('myeventsentries', compact('entries'));
+    }
+
+    public function delete($id) {
+        Inschrijving::find($id)->delete();
+        return redirect()->back();
     }
 }

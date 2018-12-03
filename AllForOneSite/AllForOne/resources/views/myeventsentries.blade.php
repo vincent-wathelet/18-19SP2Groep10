@@ -1,49 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<link rel="stylesheet" href="{{ URL::asset('/css/myeventsentriescss.css') }}">
-</head>
-<body>
-	<section>
-		<h3>DeepDive S4/HANA Entries</h3>
-		<p>Aantal  inschrijvingen : 4</p>
-		<span style="width: 150px;display:inline-block"></span>
-		<p>Deelnemers nog mogelijk: 0</p>
+@extends('layout')
+@section('content');
+<div class="page-main container">
+    {{--<div class="page-header">--}}
+    {{--<h1 class="page-title">Two Columns</h1>--}}
+    {{--</div>--}}
+    <div class="page-content">
+        <div class="panel">
+            <div class="panel-heading padding-top-15">
+                <div class="row">
+                    <div class="col col-sm-10">
+                        <h2 class="panel-title">My Entry's</h2>
+                    </div>
+                </div>
+            </div>
 
-		<table>
-			<tr>
-				<th>Naam</th>
-				<th>Acount Status</th>
-				<th>Accepted</th>
-				<th>Geweigerd</th>
-			</tr>
-			<tr>
-				<td>Joske Vermeulen</td>
-				<td><img src="{{ URL::asset('icons/img01.png') }}" height="24" width="24"/></td>
-				<td><input type="checkbox" checked="true"/></td>
-				<td><input type="checkbox"/></td>
-			</tr>
-			<tr>
-				<td>Imke Kempe</td>
-				<td><img src="{{ URL::asset('icons/img02.png') }}" height="24" width="24"/></td>
-				<td><input type="checkbox"/></td>
-				<td><input type="checkbox" checked="true"/></td>
-			</tr>
-			<tr>
-				<td>Jonas Lieder</td>
-				<td><img src="{{ URL::asset('icons/img01.png') }}" height="24" width="24"/></td>
-				<td><input type="checkbox" checked="true"/></td>
-				<td><input type="checkbox"/></td>
-			</tr>
-			<tr>
-				<td>Katie Ludovic</td>
-				<td><img src="{{ URL::asset('icons/img01.png') }}" height="24" width="24"/></td>
-				<td><input type="checkbox"/></td>
-				<td><input type="checkbox"/></td>
-			</tr>
-		</table>
-	</section>
-</body>
-</html>
+            <div class="panel-body">
+
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-striped font-size-16">
+                        <thead>
+                        <tr>
+                            <td>naam</td>
+                            <td>datum</td>
+                            <td>locatie</td>
+                            <td class="text-center">Accepted</td>
+                            <td class="text-center">Leave</td>
+                            <td class="text-center">Detail</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($entries as $entry)
+                            <tr>
+                                <td>{{$entry->event->naam}}</td>
+                                <td>{{substr($entry->event->date, 0 , -9)}}</td>
+                                <td>
+                                    <span>{{$entry->event->lokaal->lokaal}}</span>
+                                </td>
+                                <td>
+                                    <div class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" name="inputCheckboxes"
+                                               @if($entry->bevestigt == true)
+                                               checked
+                                                @endif
+                                                disabled
+                                        />
+                                        <label></label>
+                                        <div class="hide entryid">{{$entry->id}}</div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{asset('myentries/delete/'.$entry->id)}}"
+                                       class="btn btn-sm btn-icon btn-pure btn-default"
+                                       data-toggle="tooltip"
+                                       data-original-title="Leave">
+                                        <i class="icon glyphicon glyphicon-remove-circle" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{asset('myevents/show/'.$entry->event->id)}}"
+                                       class="btn btn-sm btn-icon btn-pure btn-default"
+                                       data-toggle="tooltip"
+                                       data-original-title="Detail">
+                                        <i class="icon glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel-heading padding-top-15">
+                <div class="row">
+                    <div class="col col-sm-10">
+                        <h2 class="panel-title">My Archived Entry's</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-striped font-size-16">
+                        <thead>
+                        <tr>
+                            <td>naam</td>
+                            <td>datum</td>
+                            <td>locatie</td>
+                            <td class="text-center">Review</td>
+                            <td class="text-center">Detail</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach($entries as $entry)
+                            @if($entry->bevestigt == true)
+                                <tr>
+                                    <td>{{$entry->event->naam}}</td>
+                                    <td>{{substr($entry->event->date, 0, -9)}}</td>
+                                    <td>
+                                        <span>{{$entry->event->lokaal->lokaal}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{asset('myentries/review/'.$entry->id)}}"
+                                           class="btn btn-sm btn-icon btn-pure btn-default"
+                                           data-toggle="tooltip"
+                                           data-original-title="Review">
+
+                                            @if($entry->event->feedbackevents->count() > 0)
+                                                <i class="icon glyphicon glyphicon-ok" aria-hidden="true"></i>
+                                            @else
+                                                <i class="icon glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                            @endif
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{asset('myevents/show/'.$entry->event->id)}}"
+                                           class="btn btn-sm btn-icon btn-pure btn-default"
+                                           data-toggle="tooltip"
+                                           data-original-title="Detail">
+                                            <i class="icon glyphicon glyphicon-circle-arrow-right"
+                                               aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('js')
+    <script>
+        $('[name="inputCheckboxes"]').on('change', function () {
+            id = $(this).parent().find('.entryid').html();
+            // $.ajax({
+            //     url: 'myevents',
+            //
+            // })
+
+            window.location.href = "{{asset('myevents/accept')}}/" + id;
+        })
+    </script>
+@endsection
