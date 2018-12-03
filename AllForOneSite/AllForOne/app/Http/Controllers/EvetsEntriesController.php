@@ -98,7 +98,11 @@ class EvetsEntriesController extends Controller
 
         $event->save();
 
-        $organization = new Organisatoren();
+        if (!$id) {
+            $organization = new Organisatoren();
+        } else {
+            $organization = Organisatoren::find($event->id);
+        }
         $organization->eventId = $event->id;
         $organization->userId = Auth::User()->id;
         $organization->titel = $request->naam;
