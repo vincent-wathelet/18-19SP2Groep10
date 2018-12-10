@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Start Datum: </label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->date))}}@endif" name="start_date" id="start_date" placeholder="" required>
+                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->date))}}@endif" name="begindate" id="begindate" placeholder="" required>
                                     </div>
                                 </div>
 
@@ -64,7 +64,7 @@
                                     <div class="col-sm-9">
                                         <input class="form-control"
                                                {{--value="@if (isset($event)) {{$event->addtime($event->date, $event->duur)}}@endif"--}}
-                                               name="end_date" id="end_date" placeholder=""
+                                               name="enddate" id="enddate" placeholder=""
                                                 @if (!isset($event))
                                                required
                                                @endif
@@ -119,8 +119,6 @@
                                         {{--<input class="form-control" placeholder="" required name="">--}}
                                     </div>
                                 </div>
-
-
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Description: </label>
                                     <div class="col-sm-9">
@@ -150,25 +148,25 @@
     <script src="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.full.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('#start_date').datetimepicker({
+            $('#begindate').datetimepicker({
                 format:'m/d/Y H:i',
                 onChangeDateTime:logic
             });
 
 
-            if ($('#start_date').val() != '') {
-                $('#end_date').datetimepicker({
+            if ($('#begindate').val() != '') {
+                $('#enddate').datetimepicker({
                     format:'m/d/Y H:i',
-                    minDateTime: $('#start_date').datetimepicker('getValue'),
+                    minDateTime: $('#begindate').datetimepicker('getValue'),
                 })
             }
 
             function logic() {
-                $('#end_date').val($('#start_date').val());
-                $('#end_date').datetimepicker({
+                $('#enddate').val($('#begindate').val());
+                $('#enddate').datetimepicker({
                     format:'m/d/Y H:i',
-                    minDateTime: $('#start_date').datetimepicker('getValue'),
-                    default:  $('#start_date').datetimepicker('getValue'),
+                    minDateTime: $('#begindate').datetimepicker('getValue'),
+                    default:  $('#begindate').datetimepicker('getValue'),
                 })
             }
             //

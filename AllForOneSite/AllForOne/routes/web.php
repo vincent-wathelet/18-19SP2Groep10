@@ -57,6 +57,9 @@ Route::post('manage-users', 'manageuserController@update')->name('manage-users')
 
 Route::get('/homepage', 'HomepageController@index')->name('homepage');
 
+Route::get('/profile', 'ProfileController@create')->name('profile');
+Route::post('/profile', 'ProfileController@update')->name('profile');
+
 Route::get('admin-dashboard', 'admindashboardController@create')->name('admin-dashboard');
 
 Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');

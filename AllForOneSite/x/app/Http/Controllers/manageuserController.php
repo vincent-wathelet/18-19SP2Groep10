@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
-class HomepageController extends Controller
+class manageuserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,11 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        return view('homepage');
+      
+        $users = User::all();
+        
+       
+        return view('manageusers', compact('users'));
     }
 
     /**
@@ -23,7 +28,8 @@ class HomepageController extends Controller
      */
     public function create()
     {
-        //
+       
+        return view('manageusers');
     }
 
     /**
@@ -56,7 +62,9 @@ class HomepageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+        
+        return view('manageusersedit', compact('users'));
     }
 
     /**
@@ -66,9 +74,19 @@ class HomepageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $users = User::find($request->id);
+
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->admin = $request->admin;
+        $users->banned = $request->banned;
+
+        $users->save();
+        
+        return redirect('manage-users');
+        
     }
 
     /**

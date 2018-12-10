@@ -1,61 +1,45 @@
-@extends('layout')
-
+@extends('layouts.admin')
 @section('css')
     <link rel="stylesheet" href="{{ asset('global/vendor/icheck/icheck.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/font-awesome/font-awesome.css')}}">
 @endsection
-@section('content');
-<div class="page-main container">
-    {{--<div class="page-header">--}}
-    {{--<h1 class="page-title">Two Columns</h1>--}}
-    {{--</div>--}}
-    <div class="page-content">
-        <div class="panel">
-            <div class="panel-heading padding-top-15">
-                <div class="row">
-                    <div class="col col-sm-10">
-                        <h2 class="panel-title">{{\App\Event::find($id)->naam}}</h2>
-                    </div>
-                    <div class="col col-sm-2 padding-10">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <hr>
-                <div class="table-responsive">
-                    <div class="col-sm-6"><span class="pull-left">Number of subscribers: {{count($entries)}}</span></div>
-                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div>
-                    <br>
-                    <br>
-                    <table class="table table-striped font-size-16">
-                        <thead>
+@section('content')
+<div class="wrapper">
+        <!-- Sidebar Holder -->
+       
+        @include('layouts.sidebar')
+        
+        <!-- Page Content Holder -->
+        <div id="content">
+                @include('layouts.icon')
+            <nav class="navbar navbar-default">
+            <div class="container-fluid">
+     
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>acount Status</th>
+                        <th>Accepted</th>
+                        <th>Geweigerd</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach ($entries as $entry)
                         <tr>
-                            {{-- <td>id</td> --}}
-                            <td>naam</td>
-                            <td class="text-center">acount Status</td>
-                            <td class="text-center">Accepted</td>
-                            <td class="text-center">Geweigerd</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($entries as $entry)
-                            <tr>
-                                {{-- <td>{{$entry->userid}}</td> --}}
-
-                                <td>{{$entry->user->name}}</td>
-                                <td class="text-center">
+                             <td>{{$entry->user->name}}</td>
+                             
+                             <td class="" >
                                     <i
                                             @if($entry->user->banned == true)
                                             class="icon fa-check-square"
                                             @else
-                                            class="icon fa-exclamation-triangle"
+                                           class="fa fa-exclamation-triangle"
                                             @endif
                                             aria-hidden="true"></i>
                                 </td>
                                 <td>
-                                    <div class="checkbox-custom checkbox-default">
+                                    <div class="checkbox checkbox-default">
                                         <input type="checkbox" name="inputCheckboxes"
                                                @if($entry->bevestigt == true)
                                                checked
@@ -67,7 +51,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="checkbox-custom checkbox-default">
+                                    <div class="checkbox checkbox-default">
                                         <input type="checkbox" name="inputCheckboxes"
                                                @if($entry->bevestigt == false)
                                                checked
@@ -79,20 +63,33 @@
 
                                     </div>
                                 </td>
-                            </tr>
+                        </tr>   
+                            
                         @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+                </tbody>
+            </table>
+    
+            
+         </div>
         </div>
-    </div>
-</div>
+
+<script>
+    $(document).ready(function() {
+        $("#sidebarCollapse").on("click", function() {
+        $("#sidebar").toggleClass("active");
+        $(this).toggleClass("active");
+        });
+    });
+</script> 
+<style>
+    .checkbox input[type=checkbox], 
+    .checkbox-inline input[type=checkbox],
+    .radio input[type=radio], .radio-inline input[type=radio] {
+        margin-left: 0px !important;
+    }
+</style>
+
 @endsection
-
-
 
 @section('js')
     <script src="{{ asset('global/vendor/icheck/icheck.min.js')}}"></script>
