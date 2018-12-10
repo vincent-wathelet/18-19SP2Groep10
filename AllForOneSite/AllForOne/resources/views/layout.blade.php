@@ -7,6 +7,7 @@
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
     <title>Project</title>
+    
     <link rel="apple-touch-icon" href="{{ asset('assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
     <!-- Stylesheets -->
@@ -26,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('global/fonts/material-design/material-design.min.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/brand-icons/brand-icons.min.css')}}">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+    
 
     @yield('css')
 
@@ -89,7 +91,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem"><i class="icon md-account"
+                        <a href="{{ route('profile')}}" role="menuitem"><i class="icon md-account"
                                                                             aria-hidden="true"></i> Profile</a>
                         </li>
                         <li role="presentation">

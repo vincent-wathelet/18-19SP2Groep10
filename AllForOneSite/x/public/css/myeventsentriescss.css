@@ -1,0 +1,39 @@
+input[type="checkbox"]{
+    transform: scale(2);
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table tr:nth-child(even) {
+    background: lightgrey;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: left;
+}
+
+table th {
+    background: -moz-default-background-color  ;
+    color: black;
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p {
+    /* other styles goes here... */
+    display: inline-block;
+    vertical-align: top;
+}
+

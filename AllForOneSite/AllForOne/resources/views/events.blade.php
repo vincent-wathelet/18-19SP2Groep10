@@ -34,23 +34,23 @@
 
                         @foreach($organizations as $org)
                         <tr>
-                            <td>{{$org->event->naam}}</td>
-                            <td>{{substr($org->event->date, 0, -9)}}</td>
+                            <td>{{$org->event['naam']}}</td>
+                            <td>{{substr($org->event['date'], 0, -9)}}</td>
                             <td>
-                                <span>{{$org->event->lokaal->lokaal}}</span>
+                                <span>{{$org->event['lokaal']['lokaal']}}</span>
                             </td>
                             <td>
-                                <a href="{{asset('myevents/edit/'.$org->event->id)}}"  class="btn btn-sm btn-icon btn-pure btn-default"
+                                <a href="{{asset('myevents/edit/'.$org->event['id'])}}"  class="btn btn-sm btn-icon btn-pure btn-default"
                                         data-toggle="tooltip"
                                         data-original-title="Edit">
                                     <i class="icon glyphicon glyphicon-pencil" aria-hidden="true"></i>
                                 </a>
-                                <a href="{{asset('myevents/show/'.$org->event->id)}}" class="btn btn-sm btn-icon btn-pure btn-default"
+                                <a href="{{asset('myevents/show/'.$org->event['id'])}}" class="btn btn-sm btn-icon btn-pure btn-default"
                                         data-toggle="tooltip"
                                         data-original-title="view">
                                     <i class="icon glyphicon glyphicon-check" aria-hidden="true"></i>
                                 </a>
-                                <a href="{{asset('myevents/delete/'.$org->event->id)}}" class="btn btn-sm btn-icon btn-pure btn-default"
+                                <a href="{{asset('myevents/delete/'.$org->event['id'])}}" class="btn btn-sm btn-icon btn-pure btn-default"
                                         data-toggle="tooltip"
                                         data-original-title="Delete">
                                     <i class="icon glyphicon glyphicon-remove-circle" aria-hidden="true"></i>

@@ -43,4 +43,21 @@ Route::get('/myEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
 
 
+Route::get('edit-events', 'AdminController@create')->name('edit-events');
+Route::get('edit-events', 'AdminController@index')->name('edit-events');
+Route::get('edit-events/{id}', 'AdminController@show')->name('edit-events');
+Route::get('edit-events/edit/{id}', 'AdminController@edit');
+Route::post('edit-events/save/{id?}', 'AdminController@save')->name('edit-events_save');
+Route::get('edit-events/delete/{id}', 'AdminController@delete');
+
+Route::get('manage-users', 'manageuserController@create')->name('manage-users');
+Route::get('manage-users', 'manageuserController@index')->name('manage-users');
+Route::get('manage-users/edit/{id}', 'manageuserController@edit');
+Route::post('manage-users', 'manageuserController@update')->name('manage-users');
+
+Route::get('/homepage', 'HomepageController@index')->name('homepage');
+
+Route::get('admin-dashboard', 'admindashboardController@create')->name('admin-dashboard');
+
+Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
 

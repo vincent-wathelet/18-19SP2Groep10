@@ -32,6 +32,7 @@
                     <table class="table table-striped font-size-16">
                         <thead>
                         <tr>
+                            {{-- <td>id</td> --}}
                             <td>naam</td>
                             <td class="text-center">acount Status</td>
                             <td class="text-center">Accepted</td>
@@ -41,6 +42,8 @@
                         <tbody>
                         @foreach($entries as $entry)
                             <tr>
+                                {{-- <td>{{$entry->userid}}</td> --}}
+
                                 <td>{{$entry->user->name}}</td>
                                 <td class="text-center">
                                     <i
