@@ -31,17 +31,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $id = Auth::id();
-        
-        if($user['admin'] == 1){
-            
-            return redirect('admin-dashboard');
-        }
-        elseif($user['admin'] == 0){
-            
-            return redirect('homepage');
-        }
+       
+        return redirect('homepage');
+       
     }
 
     public function check(Request $request){

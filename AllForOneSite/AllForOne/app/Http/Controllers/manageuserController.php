@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Event;
+use App\Organisatoren;
+use App\Inschrijving;
 
 class manageuserController extends Controller
 {
@@ -95,8 +98,29 @@ class manageuserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request, $id )
     {
-        //
-    }
+       
+        $users = User::find($id);
+        $events_array = [];
+        $orgs = Organisatoren::where('userId', $id)->get();
+
+            foreach($orgs as $org){ 
+                $ins = Inschrijving::where('eventid', $org['eventId']);
+                $ins->delete();
+                $insch = Inschrijving::where('userid', $id);
+                $insch->delete();
+                $events_array[] = Event::find($org->eventId);
+            }
+
+        $orgs = Organisatoren::where('userId', $id)->delete();              
+
+            foreach ($events_array as $event_element) {
+                $event_element->delete();
+            }    
+
+        $users->delete();
+
+        return redirect('manage-users');
+    }   
 }

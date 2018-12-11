@@ -56,7 +56,7 @@
 
                            <td>
                            <a href="manage-users/edit/{{ $user['id'] }}"> <button class="btn">Edit</button></a>
-                                <a href=""> <button class="btn">Delete</button></a>
+                           <a href="manage-users/delete/{{ $user['id'] }}"> <button class="btn">Delete</button></a>
                            </td>
                         </tr>   
                         @endforeach

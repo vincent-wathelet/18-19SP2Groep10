@@ -35,6 +35,11 @@ class AdminController extends Controller
         
         return view('adminevents');
     }
+    public function adminhome()
+    {
+        
+        return view('adminpage');
+    }
 
     /**
      * Store a newly created resource in storage.
