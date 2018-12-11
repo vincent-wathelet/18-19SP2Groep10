@@ -3,6 +3,13 @@
 @endsection
 @section('content')
 <div class="container">
+    <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+            <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}</p>
+            @endif
+        @endforeach
+    </div>    
     <div style="height: 100px"></div>
         <div class="row">
             <div class="col-lg-12 ">
@@ -17,8 +24,8 @@
             <div class="col-lg-12 ">
                 <a class="btn btn-sq-lg btn-success col-md-2 " href="{{asset('myevents')}}"><div></br><div ><i class="fas fa-tasks  fa-5x"></i></div></br><p>My Events</p></div></a>
                 <a class="btn btn-sq-lg btn-primary col-md-2 col-md-offset-1" href=""><div></br><div ><i class="far fa-bell fa-5x"></i></div></br><p>Notifications</p></div></a>
-                <a class="btn btn-sq-lg btn-success col-md-2 col-md-offset-1" href=""><div></br><div ><i class="fas fa-user-alt fa-5x"></i></div></br><p>My Account</p></div></a>
-                <a class="btn btn-sq-lg btn-primary col-md-2 col-md-offset-1" href=""><div></br><div ><i class="fas fa-sliders-h fa-5x"></i></div></br><p>Admin</p></div></a>
+            <a class="btn btn-sq-lg btn-success col-md-2 col-md-offset-1" href="{{ route('profile') }}"><div></br><div ><i class="fas fa-user-alt fa-5x"></i></div></br><p>My Account</p></div></a>
+                <a class="btn btn-sq-lg btn-primary col-md-2 col-md-offset-1" href="{{asset('admin-dashboard-user')}}"><div></br><div ><i class="fas fa-sliders-h fa-5x"></i></div></br><p>Admin</p></div></a>
             </div>
         </div>
 
