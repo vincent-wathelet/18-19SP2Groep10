@@ -20,17 +20,10 @@ class AllEventsController extends Controller
     }
     public function show($id)
     {
-        $events = Event::all();
-        foreach ($events as $e)
-        {
-            if ($e->id = $id)
-            {
-                $event = $e;
-            }
-        }
+        $events = Event::Find($id);
+        $inschrijving = $events->inschrijvings();
 
-
-        return view("event")->with('event',$event);
+        return view("event")->with('event',$events)->with('inschrijving',$inschrijving);
 
     }
 

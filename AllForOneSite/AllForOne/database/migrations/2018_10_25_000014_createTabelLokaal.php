@@ -17,6 +17,7 @@ class CreateTabelLokaal extends Migration
             $table->increments('id');
             $table->string('gebouw');
             $table->string('lokaal');
+            $table->timestamps();
         });
     }
 

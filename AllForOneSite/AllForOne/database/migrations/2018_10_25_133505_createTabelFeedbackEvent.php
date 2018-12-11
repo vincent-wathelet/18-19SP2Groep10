@@ -32,6 +32,10 @@ class CreateTabelFeedbackEvent extends Migration
      */
     public function down()
     {
+        Schema::table('feedbackevent', function (Blueprint $table) {
+            $table->dropForeign(['eventId']);
+            $table->dropForeign(['userId']);
+        });
         Schema::dropIfExists('feedbackevent');
     }
 }

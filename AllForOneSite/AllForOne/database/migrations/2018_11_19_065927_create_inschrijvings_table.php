@@ -18,6 +18,7 @@ class CreateInschrijvingsTable extends Migration
             $table->integer('eventid',false,true);
             $table->integer('userid',false,true);
             $table->boolean('bevestigt');
+            $table->boolean('aanwezig');
             $table->foreign('eventid')->references('id')->on('event');
             $table->foreign('userid')->references('id')->on('users');
             $table->unique(['eventid','userid']);
@@ -32,6 +33,11 @@ class CreateInschrijvingsTable extends Migration
      */
     public function down()
     {
+        Schema::table('inschrijvings', function (Blueprint $table) {
+            $table->dropForeign(['eventid']);
+            $table->dropForeign(['userid']);
+            $table->dropUnique(['eventid','userid']);
+        });
         Schema::dropIfExists('inschrijvings');
     }
 }

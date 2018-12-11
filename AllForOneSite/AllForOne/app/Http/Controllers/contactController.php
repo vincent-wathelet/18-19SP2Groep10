@@ -12,8 +12,8 @@ class contactController extends Controller
     // heeft de pagina
     public function index()
     {
-        $categories = Categorie::all();
-        return view('contact')->with('data',$categories);
+
+        return view('contact');
     }
 
     // bewerkt de contact from data

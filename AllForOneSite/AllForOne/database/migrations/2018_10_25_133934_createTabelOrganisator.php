@@ -16,7 +16,7 @@ class CreateTabelOrganisator extends Migration
         Schema::create('organisatoren', function (Blueprint $table) {
             $table->integer('eventId',false,true);
             $table->integer('userId',false,true);
-            $table->enum('titel' , array('Hoofdorganisator','MedeOrgainsator','bijzitter'));
+            $table->string('titel');
             $table->foreign('eventId')->references('id')->on('event');
             $table->foreign('userId')->references('id')->on('users');
             $table->timestamps();
@@ -31,6 +31,10 @@ class CreateTabelOrganisator extends Migration
      */
     public function down()
     {
+        Schema::table('organisatoren', function (Blueprint $table) {
+            $table->dropForeign(['eventId']);
+            $table->dropForeign(['userId']);
+        });
         Schema::dropIfExists('organisatoren');
     }
 }

@@ -20,8 +20,8 @@ class CreateEventTable extends Migration
             $table->string('naam');
             $table->integer('lokaalId',false,true);
             $table->integer('maxInschrijvingen');
-            $table->datetime('date');
-            $table->time('duur');
+            $table->datetime('begindate');
+            $table->datetime('enddate');
             $table->boolean('autoaccept');
             $table->string('description');
             $table->boolean('hidden');
@@ -41,9 +41,11 @@ class CreateEventTable extends Migration
      */
     public function down()
     {
-//        Schema::table('event', function (Blueprint $table) {
-//            $table->dropForeign('posts_user_id_foreign');
-//        });
+        Schema::table('event', function (Blueprint $table) {
+            $table->dropForeign(['categorieId']);
+            $table->dropForeign(['lokaalId']);
+            $table->dropUnique(['id','categorieId']);
+        });
         Schema::dropIfExists('event');
     }
 }

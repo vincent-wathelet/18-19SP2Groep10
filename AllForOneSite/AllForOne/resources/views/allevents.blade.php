@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 <div class="container">
+    <div class="row mt-5">
 	<div class="col-lg-3">
         <h3>Filter</h3>
         <div class="optionsDiv">
@@ -36,7 +37,7 @@
                 @foreach($categorie->events as $event)
                             <tr>
                                 <td>{{$event->naam}}</td>
-                                <td>{{$event->date}}</td>
+                                <td>{{date('d-M-Y H:i', strtotime($event->begindate))}}</td>
                                 <td>{{$event->lokaal->gebouw}} {{$event->lokaal->lokaal}}</td>
                                 <td><a class="btn btn-success" href="">Inschrijven</a></td>
                                 <td><a class="btn btn-primary" href="allevents/{{$event->id}}"><i class="fas fa-arrow-circle-right"></i></a></td>
@@ -47,6 +48,7 @@
             @endforeach
         @endif
     </div>
+</div>
 </div>
 
 @endsection

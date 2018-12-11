@@ -36,7 +36,7 @@ class Event extends Model
     /**
      * @var array
      */
-    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'date', 'duur', 'autoaccept', 'description', 'hidden', 'created_at', 'updated_at'];
+    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'begindate', 'enddate', 'autoaccept', 'description', 'hidden', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

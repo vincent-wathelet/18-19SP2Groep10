@@ -13,11 +13,14 @@ class Userlog extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->enum('type',['event','lokaal','user','inschrijving',]);
-            $table->string('action');
+        Schema::create('userlogs', function (Blueprint $table) {
+            $table->integer('userid',false,true);
+            $table->integer('logId',false,true);
             $table->timestamps();
+            $table->primary(array('userid','logId'));
+            $table->foreign('userid')->references('id')->on('users');
+            $table->foreign('logId')->references('id')->on('logs');
+
         });
     }
 
@@ -28,6 +31,10 @@ class Userlog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::table('userlogs', function (Blueprint $table) {
+            $table->dropForeign(['userid']);
+            $table->dropForeign(['logId']);
+        });
+        Schema::dropIfExists('userlogs');
     }
 }
