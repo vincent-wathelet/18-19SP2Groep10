@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categorie;
 use App\Event;
+use App\User;
 use App\Inschrijving;
 use App\Lokaal;
 use App\Organisatoren;
@@ -22,6 +23,7 @@ class EvetsEntriesController extends Controller
     public function index()
     {
         $organizations = Organisatoren::where('userId', Auth::User()->id)->get();
+        
 
         return view('events', compact('organizations'));
     }
@@ -30,12 +32,14 @@ class EvetsEntriesController extends Controller
     {
         $categories = Categorie::all();
         $lokaal = Lokaal::all();
+
         return view('eventdetails', compact('categories', 'lokaal'));
     }
 
     public function show($id)
     {
         $entries = Inschrijving::where('eventid', $id)->get();
+
         return view('myentries', compact('entries', 'id'));
     }
 
@@ -43,7 +47,10 @@ class EvetsEntriesController extends Controller
     {
         $categories = Categorie::all();
         $lokaal = Lokaal::all();
-        return view('eventdetails', compact('categories', 'lokaal'));
+
+        $user = Auth::User();
+       
+        return view('eventdetails', compact('categories', 'lokaal', 'user'));
     }
 
     public function save($id=null, Request $request)
@@ -53,23 +60,21 @@ class EvetsEntriesController extends Controller
         } else {
             $event = new Event();
         }
-
-//        return $request->all();
         $event->categorieId = $request->categorieId;
         $event->naam = $request->naam;
         $event->lokaalId = $request->lokaalId;
+        $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
+        $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
         $event->description = $request->description;
         $event->maxInschrijvingen = $request->maxInschrijvingen;
         $event->hidden = 0;
+        
 
 
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        /* $new_startdate = date("Y-m-d H:i:s", strtotime($event->begindate));
 
-        $new_startdate = date("Y-m-d H:i:s", strtotime($start_date));
-
-        if (!is_null($end_date)) {
-            $new_enddate = date("Y-m-d H:i:s", strtotime($end_date));
+        if (!is_null($event->enddate)) {
+            $new_enddate = date("Y-m-d H:i:s", strtotime($event->enddate));
 
             $datetime1 = new DateTime($new_startdate);
             $datetime2 = new DateTime($new_enddate);
@@ -84,40 +89,42 @@ class EvetsEntriesController extends Controller
 
             $res = "00".$year."-".$month."-".$day." ".$hour.":".$min.":".$sec;
 
-            $event->duur = $res;
+            $event->date = $res;
         }
 
         $event->date = $new_startdate;
+ */
 
-
-        if (isset($request->autoaccept) && $request->autoaccept == 'on') {
+       if (isset($request->autoaccept) && $request->autoaccept == 'on') {
             $event->autoaccept = true;
         } else {
             $event->autoaccept = false;
         }
 
         $event->save();
-
-        if (!$id) {
-            $organization = new Organisatoren();
-        } else {
-            $organization = Organisatoren::find($event->id);
-        }
-        $organization->eventId = $event->id;
-        $organization->userId = Auth::User()->id;
-        $organization->titel = $request->naam;
-        $organization->save();
+    
+            if (!$id) {
+                $organization = new Organisatoren();
+            } else {
+                $organization = Organisatoren::find($event->id);
+            }
+            $organization->eventId = $event->id;
+            $organization->userId = Auth::User()->id;
+           /*  $organization->naam = $request->naam; */
+            $organization->save();
         return redirect('myevents');
     }
 
 
     public function delete($id) {
+        
         Inschrijving::where('eventid', $id)->delete();
         Event::find($id)->delete();
         return redirect()->back();
     }
 
     public function edit($id) {
+        
         $event = Event::find($id);
 
 //        $newdate = $event->addtime('2018-11-24 12:23:00', '0000-01-00 00:00:00');

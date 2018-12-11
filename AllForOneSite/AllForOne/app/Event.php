@@ -3,6 +3,7 @@
 namespace App;
 
 use DateTime;
+use App\Admin;
 use Illuminate\Database\Eloquent\Model;
 
 /**
