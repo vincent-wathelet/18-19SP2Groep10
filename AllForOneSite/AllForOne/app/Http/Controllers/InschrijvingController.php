@@ -25,6 +25,7 @@ class InschrijvingController extends Controller
         if (Event::Find($id))
         {
             $event = Event::Find($id);
+            if(!$event->organisatorens()->where('userid', Auth::user()->id)->first()){
             if ($event->autoaccept == true) {
                 Inschrijving::updateOrCreate(['eventid' => $id, 'userid' => Auth::user()->id], ['active' => 1, 'bevestigt' => 1,'aanwezig' =>0]);
             }
@@ -32,14 +33,17 @@ class InschrijvingController extends Controller
             {
                 Inschrijving::updateOrCreate(['eventid' => $id, 'userid' => Auth::user()->id], ['active' => 1, 'bevestigt' => 0,'aanwezig' =>0]);
             }
+            }
         }
         return back();
     }
     public  function Uitschrijven($id)
     {
-        if (Event::Find($id))
-        {
-            Inschrijving::updateOrCreate(['eventid' => $id, 'userid' => Auth::user()->id],['active' => 0, 'bevestigt' => 0, 'aanwezig' =>0]);
+        $event = Event::Find($id);
+        if(!$event->organisatorens()->where('userid', Auth::user()->id)->first()) {
+            if (Event::Find($id)) {
+                Inschrijving::updateOrCreate(['eventid' => $id, 'userid' => Auth::user()->id], ['active' => 0, 'bevestigt' => 0, 'aanwezig' => 0]);
+            }
         }
         return back();
     }
