@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property Categorie $categorie
- * @property User $user
- * @property User $user
+ * @property User $userReciever
+ * @property User $userSender
  * @property int $recieverId
  * @property int $senderId
  * @property int $categroieId
@@ -17,11 +17,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  */
-class FeedbackUser extends Model
+class Feedbackuser extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'feedbackuser';
@@ -42,7 +42,7 @@ class FeedbackUser extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function userReciever()
     {
         return $this->belongsTo('App\User', 'recieverId');
     }
@@ -50,7 +50,7 @@ class FeedbackUser extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function userSender()
     {
         return $this->belongsTo('App\User', 'senderId');
     }

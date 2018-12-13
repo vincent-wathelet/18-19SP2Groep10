@@ -17,8 +17,13 @@ Route::get('logout', 'Auth\LoginController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// toont all eventen
 Route::get('/allevents', 'AllEventsController@index')->name('allevents');
+// toont detail van een event
 Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
+// schrijft je voor event in
+Route::get('/allevents/{id}/inschrijving','InschrijvingController@Inschrijven');
+Route::get('/allevents/{id}/uitschrijven','InschrijvingController@Uitschrijven');
 //Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');

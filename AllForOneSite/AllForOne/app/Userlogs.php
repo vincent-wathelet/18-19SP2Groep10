@@ -5,35 +5,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property Event $event
+ * @property Log $log
  * @property User $user
- * @property int $id
- * @property int $eventid
  * @property int $userid
- * @property boolean $bevestigt
- * @property boolean $aanwezig
+ * @property int $logId
  * @property string $created_at
  * @property string $updated_at
  */
-class Inschrijving extends Model
+class Userlogs extends Model
 {
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'inschrijvings';
     /**
      * @var array
      */
-    protected $fillable = ['eventid', 'userid', 'bevestigt', 'aanwezig', 'active','created_at', 'updated_at'];
+    protected $fillable = ['created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function event()
+    public function log()
     {
-        return $this->belongsTo('App\Event', 'eventid');
+        return $this->belongsTo('App\Log', 'logId');
     }
 
     /**

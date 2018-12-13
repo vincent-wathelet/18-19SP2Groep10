@@ -19,6 +19,7 @@ class CreateInschrijvingsTable extends Migration
             $table->integer('userid',false,true);
             $table->boolean('bevestigt');
             $table->boolean('aanwezig');
+            $table->boolean('active');
             $table->foreign('eventid')->references('id')->on('event');
             $table->foreign('userid')->references('id')->on('users');
             $table->unique(['eventid','userid']);

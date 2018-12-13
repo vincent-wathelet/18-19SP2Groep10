@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  */
-class FeedbackEvent extends Model
+class Feedbackevent extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'feedbackevent';

@@ -35,13 +35,33 @@
                             <th>Detail</th>
                         </tr>
                 @foreach($categorie->events as $event)
-                            <tr>
-                                <td>{{$event->naam}}</td>
-                                <td>{{date('d-M-Y H:i', strtotime($event->begindate))}}</td>
-                                <td>{{$event->lokaal->gebouw}} {{$event->lokaal->lokaal}}</td>
-                                <td><a class="btn btn-success" href="">Inschrijven</a></td>
-                                <td><a class="btn btn-primary" href="allevents/{{$event->id}}"><i class="fas fa-arrow-circle-right"></i></a></td>
-                            </tr>
+                            @if($event->organisatorens()->where('userid', Auth::user()->id)->first())
+                                <tr>
+                                    <td>{{$event->naam}}</td>
+                                    <td>{{date('d-M-Y H:i', strtotime($event->begindate))}}</td>
+                                    <td>{{$event->lokaal->gebouw}}{{$event->lokaal->lokaal}}</td>
+                                    <td></td>
+                                    <td><a class="btn btn-primary" href="allevents/{{$event->id}}"><i class="far fa-edit"></i></a></td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td>{{$event->naam}}</td>
+                                    <td>{{date('d-M-Y H:i', strtotime($event->begindate))}}</td>
+                                    <td>{{$event->lokaal->gebouw}}{{$event->lokaal->lokaal}}</td>
+                                    <td>@if($event->inschrijvings()->where('userid', Auth::user()->id)->first())
+                                            @if($event->inschrijvings()->where('userid', Auth::user()->id)->where('active', true)->first())
+                                                <a class="btn btn-danger text-white mt-2 mb-2" href="/allevents/{{$event->id}}/uitschrijven">Uitschrijven</a>
+                                            @else
+                                                <a class="btn btn-success text-white mt-2 mb-2" href="/allevents/{{$event->id}}/inschrijving">Inschrijven</a>
+                                            @endif
+                                        @else
+                                            <a class="btn btn-success text-white mt-2 mb-2" href="/allevents/{{$event->id}}/inschrijving">Inschrijven</a>
+                                        @endif</td>
+                                    <td><a class="btn btn-primary" href="allevents/{{$event->id}}"><i class="fas fa-arrow-circle-right"></i></a></td>
+                                </tr>
+                            @endif
+
+
                     @endforeach
                     </table>
                 @endif
