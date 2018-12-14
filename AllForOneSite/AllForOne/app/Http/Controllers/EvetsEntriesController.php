@@ -53,7 +53,6 @@ class EvetsEntriesController extends Controller
         return view('eventdetails', compact('categories', 'lokaal', 'user'));
     }
 
-
     public function save($id=null, Request $request)
     {
         if ($id) {
@@ -115,7 +114,6 @@ class EvetsEntriesController extends Controller
             $organization->save();
         return redirect('myevents');
     }
-
 
 
     public function delete($id) {

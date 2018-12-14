@@ -35,6 +35,11 @@ class CreateTabelUserFeedback extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedbackusers');
+        Schema::table('feedbackuser', function (Blueprint $table) {
+            $table->dropForeign(['recieverId']);
+            $table->dropForeign(['senderId']);
+            $table->dropForeign(['categroieId']);
+        });
+        Schema::dropIfExists('feedbackuser');
     }
 }

@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $gebouw
  * @property string $lokaal
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Lokaal extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'lokaal';
@@ -22,7 +24,7 @@ class Lokaal extends Model
     /**
      * @var array
      */
-    protected $fillable = ['gebouw', 'lokaal'];
+    protected $fillable = ['gebouw', 'lokaal', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

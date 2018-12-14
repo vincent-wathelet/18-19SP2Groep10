@@ -42,8 +42,8 @@ class CreateEventTable extends Migration
     public function down()
     {
         Schema::table('event', function (Blueprint $table) {
-            $table->dropForeign('[categorieId]');
-            $table->dropForeign('[lokaalId]');
+            $table->dropForeign(['categorieId']);
+            $table->dropForeign(['lokaalId']);
             $table->dropUnique(['id','categorieId']);
         });
         Schema::dropIfExists('event');

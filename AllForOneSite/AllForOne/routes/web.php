@@ -11,16 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomepageController@index');
 
 Route::get('logout', 'Auth\LoginController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// toont all eventen
 Route::get('/allevents', 'AllEventsController@index')->name('allevents');
+// toont all events post
+Route::post('/allevents', 'AllEventsController@index')->name('allevents');
+// toont detail van een event
 Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
+// schrijft je voor event in
+Route::get('/allevents/{id}/inschrijving','InschrijvingController@Inschrijven');
+Route::get('/allevents/{id}/uitschrijven','InschrijvingController@Uitschrijven');
 //Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
@@ -29,7 +34,7 @@ Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetail
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 
-
+Route::get('/logout','Auth\LogoutController@logout');
 Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
 //Route::get('/myeventsdetail', 'EvetsEntriesController@show')->name('eventsentsdetail');
 Route::get('/myevents', 'EvetsEntriesController@index')->name('myevents');

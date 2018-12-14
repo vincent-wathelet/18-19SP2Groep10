@@ -3,7 +3,7 @@
 @section("content")
 
 
-    <div class="container text-center panel ">
+    <div class="container text-center jumbotron mt-5 ">
         <h1>Welcome to All For One</h1>
         <p>l
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis gravida lorem, nec feugiat velit.

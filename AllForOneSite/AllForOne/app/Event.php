@@ -2,8 +2,6 @@
 
 namespace App;
 
-use DateTime;
-use App\Admin;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $naam
  * @property int $lokaalId
  * @property int $maxInschrijvingen
- * @property string $date
- * @property string $duur
+ * @property string $begindate
+ * @property string $enddate
  * @property boolean $autoaccept
  * @property string $description
  * @property boolean $hidden
@@ -29,7 +27,7 @@ class Event extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'event';
@@ -37,7 +35,7 @@ class Event extends Model
     /**
      * @var array
      */
-    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'begindate', 'enddate', 'date', 'autoaccept', 'description', 'hidden', 'user_id', 'created_at', 'updated_at'];
+    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'begindate', 'enddate', 'autoaccept', 'description', 'hidden', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -77,21 +75,5 @@ class Event extends Model
     public function organisatorens()
     {
         return $this->hasMany('App\Organisatoren', 'eventId');
-    }
-
-    public function addtime($time1,$time2)
-    {
-        $x = new DateTime($time1);
-        $y = new DateTime($time2);
-
-        $interval1 = $x->diff(new DateTime('0000-00-00 00:00:00')) ;
-        $interval2 = $y->diff(new DateTime('0000-00-00 00:00:00')) ;
-
-        $e = new DateTime('0000-00-00 00:00:00');
-        $f = clone $e;
-        $e->add($interval1);
-        $e->add($interval2);
-        $total = $f->diff($e)->format("%M/%D/%Y %H:%I");
-        return $total;
     }
 }

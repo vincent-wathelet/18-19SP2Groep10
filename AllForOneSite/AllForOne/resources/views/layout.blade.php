@@ -22,11 +22,18 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/slidepanel/slidePanel.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/waves/waves.css')}}">
+    
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('global/fonts/glyphicons/glyphicons.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/material-design/material-design.min.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/brand-icons/brand-icons.min.css')}}">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/multiselect.css') }}" rel="stylesheet">
     
 
     @yield('css')
@@ -170,7 +177,8 @@
 <script src="{{ asset('global/js/components/slidepanel.js')}}"></script>
 <script src="{{ asset('global/js/components/switchery.js')}}"></script>
 <script src="{{ asset('global/js/components/tabs.js')}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="{{ asset('js/myjs.js') }}"></script>
 @yield('js')
 <script>
     (function (document, window, $) {
