@@ -24,6 +24,8 @@ Route::post('/allevents', 'AllEventsController@index')->name('allevents');
 
 Route::post('/allevents-subscribe', 'AllEventsController@subscribe')->name('allevents-subscribe');
 
+/* Route::get('/allevents-subscribedelete', 'AllEventsController@subscribedelete')->name('allevents-subscribedelete');
+ */
 // toont detail van een event
 Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
 // schrijft je voor event in

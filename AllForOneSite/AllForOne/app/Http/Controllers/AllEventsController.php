@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Categorie;
 use App\Event;
-use Auth;
+use App\Inschrijving;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -13,14 +14,44 @@ class AllEventsController extends Controller
 
     public function subscribe(Request $request)
     {
-       /*  $id = Auth::user()['id'];
-        $currentuser = User::find($id); */
-
-
         
-       /*  print_r($request[$eventid']);
-        exit(); */
+        $userid = Auth::user()->id;
+        $eventid =  $request->eventId;
+        $bevestigt = '0';
+        $aanwezig = '0';
+        $userEvents = Inschrijving::where(['eventid'=>$eventid,'userid'=>$userid])->get();
+        $action = '';
+
+        if($userEvents->count() == 0){
+
+            $insert = Inschrijving::insert([
+                'userid' => $userid,
+                'eventid' => $eventid,
+                'bevestigt' => $bevestigt,
+                'aanwezig' => $aanwezig
+            ]);
+          $action = 'insert';  
+        } else{
+  
+            $delete = Inschrijving::where('eventid', '=', $eventid)->where('userid', '=', $userid)->delete();
+            $action = 'delete';
+            
+        }
+        return $action;
     }
+
+    /* public function subscribedelete(Request $request)
+    {
+        $userid = '10';
+        $eventid =  $request->eventId;
+        $bevestigt = '0';
+        $aanwezig = '0';
+
+        $delete = Inschrijving::where('eventid', '=', $eventid)->where('userid', '=', $userid)->delete();
+        return redirect('allevents');
+    }   
+ */
+
 
     /**
      * Display a listing of the resource.
@@ -28,8 +59,7 @@ class AllEventsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-
+    {   
 
         
         $selectcategory = $request->selectcategory;
@@ -57,11 +87,18 @@ class AllEventsController extends Controller
         if(empty($category) || in_array(0,$category)){
             $categoriesArray = [0];
         }
+        
+
+        $ins = Inschrijving::where('userid', Auth::user()->id)->get();        
+        $userEvents = $ins->pluck('eventid')->toArray();
+
 
         if($request->ajax()){
-            return view("shared.alleventslist", compact('categoriesEvents'))->with('categories',$categories)->with('categoriesArray',$categoriesArray);
+            return view("shared.alleventslist", compact('categoriesEvents'))->with('categories',$categories)->with('categoriesArray',$categoriesArray)
+            ->with('userEvents',$userEvents);
         }else{
-            return view("allevents", compact('categoriesEvents'))->with('categories',$categories)->with('categoriesArray',$categoriesArray);
+            return view("allevents", compact('categoriesEvents'))->with('categories',$categories)->with('categoriesArray',$categoriesArray)
+            ->with('userEvents',$userEvents);
         }
     }
     public function show($id)

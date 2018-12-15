@@ -27,17 +27,15 @@ if(!array_key_exists($categorie->id,$categoriesEvents))
                                 <h4 class="htag capitalize"> {{$categoriesEvent->lokaal->gebouw}} {{$categoriesEvent->lokaal->lokaal}} </h4>
                                 <p class="ptag">Thu, Dec 15, 8.45am </p> 
                                 <p class="ptag"> {{$categoriesEvent->description}}</p>
-
-                               {{--  <a class="btn btn-primary" style="margin-top:2px;" href="allevents/{{$categoriesEvent->id}}">
-
-                                    //print_r($categoriesEvent->id); exit();
-                                    <i class="fa fa-plus" aria-hidden="true"></i> SUBSCRIBE
-                                </a> --}}
-                                
-                                <button class="btn btn-primary" id="sub" onclick="myFunction('{{$categoriesEvent->id}}')" >
-                                    <i class="fa fa-plus" aria-hidden="true"></i>SUBSCRIBE
-                                </button>
-
+                                @if(!in_array($categoriesEvent->id,$userEvents))
+                        <button class="btn btn-primary" id="subscribebutton-{{ $categoriesEvent->id }}" onclick="subscribeFunction('{{$categoriesEvent->id}}')" >                                    
+                                            <i class="fa fa-plus" aria-hidden="true"></i> SUBSCRIBE
+                                    </button>
+                                @else
+                                    <button class="btn btn-primary"  id="subscribebutton-{{ $categoriesEvent->id }}" onclick="subscribeFunction('{{$categoriesEvent->id}}')" >                                    
+                                            <i class="fa fa-check" aria-hidden="true"></i> SUBSCRIBE                                   
+                                    </button>
+                                @endif
                         </div>
                         <div>
                                 

@@ -52,32 +52,38 @@
 
 
     /* subscribe */
+    /* onclick */
 
- 
-   $(document).ready(function(){
-        
-        $("#sub").click(function(){
-         
+    function subscribeFunction(eventId){
 
-           
-            var categoriesid = $("#eventid").val();
-            var token = $('input[name="_token"]').val();
+        var token = $('input[name="_token"]').val();
 
-             console.log('prasath');
-             
-            $.ajax({
-                
-                type: "POST",
-                url: "{{route('allevents-subscribe')}}",
-                data: "userid=" + userid + "&eventid=" + eventid + "&_token=" + token,
-                success: function(d){
-                    alert(d)
+        $.ajax({
+            
+            type: "POST",
+            url: "{{route('allevents-subscribe')}}",
+            data: "eventId=" + eventId + "&_token=" + token,
+            success: function(action){
+                if(action == 'delete'){
+                    $('#subscribebutton-'+eventId).html('<i class="fa fa-plus" aria-hidden="true"></i> SUBSCRIBE');
+                }else if(action == 'insert'){
+                    $('#subscribebutton-'+eventId).html('<i class="fa fa-check" aria-hidden="true"></i> SUBSCRIBE');
                 }
+            }
 
+        }); 
+
+    }
+        
+    $(document).ready(function(){   
+            $('#insert').click(function(){
+                    $(this).html('<i class="fa fa-check" aria-hidden="true"></i> SUBSCRIBE');
             });
-        });
+            $('#delete').click(function(){
+                    $(this).html('<i class="fa fa-plus" aria-hidden="true"></i> SUBSCRIBE');
+            });
 
-    });
+     }); 
     
   
     $eventSelect = $(".js-select2");
@@ -101,30 +107,7 @@
         return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '<span class="badge">' + originalOptionBadge + '</span></span>');
     }
 
-    /* onclick */
-
-    function myFunction(eventId){
-
-            console.log("prasath",eventId);
-
-
-            var eventid = $("#eventid").val();
-            var token = $('input[name="_token"]').val();
-
-
-        $.ajax({
-                
-            type: "POST",
-            url: "{{route('allevents-subscribe')}}",
-            data: "&eventid=" + eventid + "&_token=" + token,
-            success: function(d){
-                alert(d)
-            }
-
-        }); 
-        
-    }
-    
+       
 
 
     </script>
