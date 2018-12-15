@@ -106,7 +106,7 @@ body {
 
 .images:hover {
   background: #3e51b4;
-  background-image: url("{{ asset('assets/images/logo.png')}}");
+  /* background-image: url("{{ asset('assets/images/logo.png')}}"); */
   background-size: cover;
 }
 .colors{

@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/allevents', 'AllEventsController@index')->name('allevents');
 // toont all events post
 Route::post('/allevents', 'AllEventsController@index')->name('allevents');
+
+Route::post('/allevents-subscribe', 'AllEventsController@subscribe')->name('allevents-subscribe');
+
 // toont detail van een event
 Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
 // schrijft je voor event in
@@ -71,4 +74,7 @@ Route::get('admin-dashboard', 'admindashboardController@create')->name('admin-da
 
 Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
 
-/* Route::get('admin-homepage', 'AdminController@adminhome')->name('admin-homepage'); */
+Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
+
+
+/* Route::get('subscribe', 'SubscribeController@subscribe')->name('subscribe'); */

@@ -44,8 +44,8 @@
 
 
                     </table>
-                    @if(!$event->organisatorens()->where('userid', Auth::user()->id)->first())
-                    @if($event->inschrijvings()->where('userid', Auth::user()->id)->first())
+                    @if(!$event->organisatorens()->where('userid', Auth::user()['id'])->first())
+                    @if($event->inschrijvings()->where('userid', Auth::user()['id'])->first())
                         @if($event->inschrijvings()->where('userid', Auth::user()->id)->where('active', true)->first())
                         <a class="btn btn-danger text-white mt-2 mb-2" href="/allevents/{{$event->id}}/uitschrijven">Uitschrijven</a>
                         @else
