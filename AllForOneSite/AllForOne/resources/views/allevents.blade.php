@@ -65,9 +65,9 @@
             data: "eventId=" + eventId + "&_token=" + token,
             success: function(action){
                 if(action == 'delete'){
-                    $('#subscribebutton-'+eventId).html('<i class="fa fa-plus" aria-hidden="true"></i> SUBSCRIBE');
+                    $('#subscribebutton-'+eventId).html('<i class="fa fa-plus" aria-hidden="true"></i>');
                 }else if(action == 'insert'){
-                    $('#subscribebutton-'+eventId).html('<i class="fa fa-check" aria-hidden="true"></i> SUBSCRIBE');
+                    $('#subscribebutton-'+eventId).html('<i class="fa fa-check" aria-hidden="true"></i>');
                 }
             }
 

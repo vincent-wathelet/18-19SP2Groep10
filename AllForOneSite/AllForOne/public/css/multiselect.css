@@ -102,6 +102,7 @@ body {
   transition: 0.3s;
   width: 100%;
   border-radius: 0px;
+  margin-bottom: 8%;
 }
 
 .images:hover {
@@ -131,27 +132,42 @@ img {
   padding: 10px;
   margin: 0 auto;
   text-align: center;
-  height: 212px;
+  height: auto;
 }
 p {
   margin: 0 0 2px !important;
 }
 .htag{
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .capitalize{
   text-transform: capitalize;
   color: #39364f
 }
-.ptag{
-  font-size: 12px !important;
+.ptag {
+  font-size: 8px !important;
   color: #6f7287;
 }
 .borders{
   padding-bottom: 4%;
   border-bottom: 2px solid #3e51b4;
 }
+
+.select2-dropdown{
+  width: 250px !important;
+}
+
+.custombtn {
+  width: 87%;
+  font-size: 14px;
+  padding: 0px 0;
+}
+
+.hfont {
+  font-size: 18px;
+}
+
 /* image uploaded */
 
 input[type=file]{
