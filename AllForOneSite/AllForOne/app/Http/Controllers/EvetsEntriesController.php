@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class EvetsEntriesController extends Controller
 {
@@ -60,15 +61,30 @@ class EvetsEntriesController extends Controller
         } else {
             $event = new Event();
         }
-        $event->categorieId = $request->categorieId;
-        $event->naam = $request->naam;
-        $event->lokaalId = $request->lokaalId;
-        $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
-        $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
-        $event->description = $request->description;
-        $event->maxInschrijvingen = $request->maxInschrijvingen;
-        $event->hidden = 0;
+
+        /* image upload */
+
+        if(isset($request->eventimage)){
+
+            $imageupload = $request->file('eventimage');
+            $fileExt = $imageupload->getClientOriginalExtension();
+            $uploadPath ='uploadPic';
+            $randomFileName = str_random(10).'.'.$fileExt;
+            $imageupload->move($uploadPath, $randomFileName);
+    
+            $event->eventimage = $randomFileName;
+        }
+
+            $event->categorieId = $request->categorieId;
+            $event->naam = $request->naam;
+            $event->lokaalId = $request->lokaalId;
+            $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
+            $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
+            $event->description = $request->description;
+            $event->maxInschrijvingen = $request->maxInschrijvingen;
+            $event->hidden = 0;
         
+
 
 
         /* $new_startdate = date("Y-m-d H:i:s", strtotime($event->begindate));
@@ -102,16 +118,22 @@ class EvetsEntriesController extends Controller
         }
 
         $event->save();
+           if (!$id) {
+                 $organization = new Organisatoren();
+                 $organization->eventId = $event->id;
+                 $organization->userId = Auth::User()->id; 
+                 $organization->save();
+             }
     
-            if (!$id) {
+           /*  if (!$id) {
                 $organization = new Organisatoren();
             } else {
                 $organization = Organisatoren::find($event->id);
             }
             $organization->eventId = $event->id;
-            $organization->userId = Auth::User()->id;
+            $organization->userId = Auth::User()->id; */
            /*  $organization->naam = $request->naam; */
-            $organization->save();
+            /* $organization->save(); */
         return redirect('myevents');
     }
 

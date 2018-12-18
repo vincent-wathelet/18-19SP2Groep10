@@ -13,19 +13,20 @@ if(!array_key_exists($categorie->id,$categoriesEvents))
         <div class="col-md-4">
             <div class="card">
                 <div class="images">
-                <img src="{{ asset('assets/images/events.jpg')}}" class="img" alt="Avatar" style="width:100%">
+                <img src="{{ URL::asset('uploadPic/'.$categoriesEvent->eventimage) }}" class="img" alt="Avatar" style="width:100%">
                 </div>
                 <div class="cardcontainer">
                    <div class="row"> 
                         <div class="col-md-2">
-                            <h5 class="colors htag"> DEC </h5>
-                            <h3 class="htag"> 15 </h3>
+                            <h4 class="colors htag"> {{date("M", strtotime($categoriesEvent->begindate))}} </h4>
+                            <h3 class="htag"> {{date("d", strtotime($categoriesEvent->begindate))}} </h3>
+                            
                         </div>
                         <div class="col-md-10">
                                 <h4 class="htag capitalize"> {{$categoriesEvent->naam}} </h4>
                                 <p> {{$categoriesEvent->date}}</p>
                                 <h4 class="htag capitalize"> {{$categoriesEvent->lokaal->gebouw}} {{$categoriesEvent->lokaal->lokaal}} </h4>
-                                <p class="ptag">Thu, Dec 15, 8.45am </p> 
+                                <p class="ptag"> {{date("D, M d H:i A", strtotime($categoriesEvent->begindate))}}</p> 
                                 <p class="ptag"> {{$categoriesEvent->description}}</p>
                                 @if(!in_array($categoriesEvent->id,$userEvents))
                         <button class="btn btn-primary" id="subscribebutton-{{ $categoriesEvent->id }}" onclick="subscribeFunction('{{$categoriesEvent->id}}')" >                                    

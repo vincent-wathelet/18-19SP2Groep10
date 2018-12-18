@@ -9,6 +9,9 @@ use App\Lokaal;
 use App\Inschrijving;
 use App\Organisatoren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Query\Builder;
+
 
 class AdminController extends Controller
 {

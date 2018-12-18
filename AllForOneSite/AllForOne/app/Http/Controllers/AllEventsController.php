@@ -15,7 +15,7 @@ class AllEventsController extends Controller
     public function subscribe(Request $request)
     {
         
-        $userid = Auth::user()->id;
+        $userid = Auth::user()['id'];
         $eventid =  $request->eventId;
         $bevestigt = '0';
         $aanwezig = '0';
@@ -89,7 +89,7 @@ class AllEventsController extends Controller
         }
         
 
-        $ins = Inschrijving::where('userid', Auth::user()->id)->get();        
+        $ins = Inschrijving::where('userid', Auth::user()['id'])->get();        
         $userEvents = $ins->pluck('eventid')->toArray();
 
 

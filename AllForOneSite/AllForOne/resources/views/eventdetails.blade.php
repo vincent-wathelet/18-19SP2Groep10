@@ -27,7 +27,7 @@
                             @else
                             action="{{asset('myevents/save')}}"
                             @endif
-                            method="post" id="main_form">
+                            method="post" id="main_form" enctype ='multipart/form-data'>
                         <div class="col col-sm-6">
                             <div class="form-horizontal">
                                 <div class="form-group">
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Start Datum: </label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->date))}}@endif" name="begindate" id="begindate" placeholder="" required>
+                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->begindate))}}@endif" name="begindate" id="begindate" placeholder="" required>
                                     </div>
                                 </div>
 
@@ -63,7 +63,7 @@
                                     <label class="col-sm-3 control-label">End Datum: </label>
                                     <div class="col-sm-9">
                                         <input class="form-control"
-                                               {{--value="@if (isset($event)) {{$event->addtime($event->date, $event->duur)}}@endif"--}}
+                                                value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->enddate))}}@endif"
                                                name="enddate" id="enddate" placeholder=""
                                                 @if (!isset($event))
                                                required
@@ -126,6 +126,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-3 control-label">Image Uploaded: </label>
+                                    <div class="col-sm-9" style="padding-top: 7%; " >
+                                        <input  type="file" value="" id="eventimage" name="eventimage" requird/>
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-9" style="padding-top: 2%; margin-bottom: 2%;" >
+                                            <div id="image_preview" style="width:100%;">
+
+                                                    @if (isset($event))
+                                                        <img src="{{ URL::asset('uploadPic/'.$event->eventimage) }}">
+                                                    @else
+                                                        <p>No image found</p>
+                                                    @endif
+
+                                            </div>
+                                    </div>
+                                </div>    
+                                <div class="form-group">
                                     <div class="col-sm-12">
                                         <button class="btn btn-primary pull-right" type="submit">Save</button>
                                     </div>
@@ -169,17 +190,26 @@
                     default:  $('#begindate').datetimepicker('getValue'),
                 })
             }
-            //
-            //
-            // $.getJSON('https://api.ipify.org?format=json', function(data){
-            //     console.log(data.ip);
-            // });
-            //
-            // $.getJSON('http://ipinfo.io', function(data){
-            //     console.log(data);
-            // });
+                         
+                    
+        });
 
+        $('#eventimage').change(function(){
 
-        })
+            $('#image_preview').html("");
+            var total_file = document.getElementById('eventimage').files.length;
+            for(var i = 0; i < total_file; i++){
+                $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+            }
+        });
+
+         $('form').ajaxForm(function() 
+
+        {
+
+            alert("Uploaded SuccessFully");
+
+        }); 
+
     </script>
 @endsection
