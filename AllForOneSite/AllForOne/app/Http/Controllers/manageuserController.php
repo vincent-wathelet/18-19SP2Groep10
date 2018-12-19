@@ -7,6 +7,7 @@ use App\User;
 use App\Event;
 use App\Organisatoren;
 use App\Inschrijving;
+use Illuminate\Support\Facades\Hash;
 
 class manageuserController extends Controller
 {
@@ -34,6 +35,35 @@ class manageuserController extends Controller
        
         return view('manageusers');
     }
+    public function regcreate(Request $request)
+    {
+        
+        return view('manageusercreate');
+    }
+
+    public function regstore(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'confirmed'
+            /* 'password_confirmation' => ' ' */
+        ]);
+        
+        $users = new User;
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->password = Hash::make($request->password);
+        $users->admin = $request->admin;
+        $users->banned = $request->banned;
+
+        
+
+        $users->save();
+
+        return redirect('manage-users-create');
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -85,6 +115,7 @@ class manageuserController extends Controller
         $users->email = $request->email;
         $users->admin = $request->admin;
         $users->banned = $request->banned;
+        $users->password =  Hash::make($request->password);
 
         $users->save();
         

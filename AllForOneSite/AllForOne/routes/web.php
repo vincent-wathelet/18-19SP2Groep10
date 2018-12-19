@@ -37,7 +37,7 @@ Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 //Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
-Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
+Route::get('/showevent/{id}', 'EventDetailsController@show')->name('showevent');
 
 Route::get('/logout','Auth\LogoutController@logout');
 Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
@@ -50,12 +50,13 @@ Route::get('myevents/edit/{id}', 'EvetsEntriesController@edit');
 Route::get('myevents/show/{id}', 'EvetsEntriesController@show');
 Route::get('myevents/accept/{id}', 'EvetsEntriesController@accept');
 Route::get('/myEntries', 'MyEntriesController@index')->name('myentries');
+Route::get('myEntries/details/{id}', 'MyEntriesController@details');
 Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
 
 
-Route::get('edit-events', 'AdminController@create')->name('edit-events');
+Route::get('edit-events', 'AdminController@create');
 Route::get('edit-events', 'AdminController@index')->name('edit-events');
-Route::get('edit-events/{id}', 'AdminController@show')->name('edit-events');
+Route::get('edit-events/{id}', 'AdminController@show');
 Route::get('edit-events/edit/{id}', 'AdminController@edit');
 Route::post('edit-events/save/{id?}', 'AdminController@save')->name('edit-events_save');
 Route::get('edit-events/delete/{id}', 'AdminController@delete');
@@ -66,6 +67,9 @@ Route::get('manage-users/edit/{id}', 'manageuserController@edit');
 Route::post('manage-users', 'manageuserController@update')->name('manage-users');
 Route::get('manage-users/delete/{id}', 'manageuserController@delete');
 
+Route::get('manage-users-create', 'manageuserController@regcreate')->name('manage-users-create');
+Route::post('manage-users-store', 'manageuserController@regstore')->name('manage-users-store');
+
 Route::get('/homepage', 'HomepageController@index')->name('homepage');
 
 Route::get('/profile', 'ProfileController@create')->name('profile');
@@ -74,7 +78,7 @@ Route::post('/profile', 'ProfileController@update')->name('profile');
 
 Route::get('admin-dashboard', 'admindashboardController@create')->name('admin-dashboard');
 
-Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
+Route::get('admin-dashboard', 'admindashboardController@index')->name('admin-dashboard');
 
 Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
 

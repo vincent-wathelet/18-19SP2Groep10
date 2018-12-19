@@ -8,9 +8,9 @@
         
         <!-- Page Content Holder -->
         <div id="content">
-            @include('layouts.icon')
+            @include('layouts.usericon')
             <nav class="navbar navbar-default">
-
+                
             <div class="container-fluid">
      
             <table class="table">
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                        
                         @foreach ($users as $user)
                         <tr>    
                            <td>{{ $user['id'] }}</td>
@@ -53,11 +53,9 @@
                                     }
                                 ?>
                             </td>    
-
                            <td>
                            <a href="manage-users/edit/{{ $user['id'] }}"> <button class="btn">Edit</button></a>
                            <a href="manage-users/delete/{{ $user['id'] }}"> <button class="btn">Delete</button></a>
-                           </td>
                         </tr>   
                         @endforeach
                     

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
-    <title>Project</title>
+    <title>AllForOne</title>
     
     <link rel="apple-touch-icon" href="{{ asset('assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
@@ -74,7 +74,7 @@
                  title="Remark">
             <img class="navbar-brand-logo navbar-brand-logo-special" src="{{ asset('assets/images/logo-blue.png')}}"
                  title="Remark">
-            <span class="navbar-brand-text"> Project</span>
+            <span class="navbar-brand-text"> AllForOne</span>
         </a>
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
                 data-toggle="collapse">

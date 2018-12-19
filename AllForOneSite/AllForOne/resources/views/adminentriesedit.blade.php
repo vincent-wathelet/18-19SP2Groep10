@@ -21,7 +21,7 @@
                 action="{{asset('edit-events/save')}}"
                 @endif
                 action ={{ ('edit-events') }}
-                method="post" id="main_form">
+                method="post" id="main_form" enctype ='multipart/form-data'>
             <div class="col col-sm-6">
                 <div class="form-horizontal">
                     <div class="form-group">
@@ -117,6 +117,27 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">Image Uploaded: </label>
+                        <div class="col-sm-9" style="padding-top: 7%; " >
+                            <input  type="file" value="" id="eventimage" name="eventimage" requird/>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-9" style="padding-top: 2%; margin-bottom: 2%;" >
+                                <div id="image_preview" style="width:100%;">
+
+                                        @if (isset($admins))
+                                            <img src="{{ URL::asset('uploadPic/'.$admins->eventimage) }}">
+                                        @else
+                                            <p>No image found</p>
+                                        @endif
+
+                                </div>
+                        </div>
+                    </div>  
+                    <div class="form-group">
                         <div class="col-sm-12">
                             <button class="btn btn-primary pull-right" type="submit">Save</button>
                         </div>
@@ -179,17 +200,25 @@ $(this).toggleClass("active");
 
 
         })
-    </script>
-    <script>
-        $('[name="inputCheckboxes"]').on('change', function () {
-            id = $(this).parent().find('.entryid').html();
-            // $.ajax({
-            //     url: 'myevents',
-            //
-            // })
 
-            window.location.href = "{{asset('myevents/accept')}}/" + id;
-        })
+        $('#eventimage').change(function(){
+
+            $('#image_preview').html("");
+            var total_file = document.getElementById('eventimage').files.length;
+            for(var i = 0; i < total_file; i++){
+                $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'>");
+            }
+        });
+
+        $('form').ajaxForm(function() 
+
+        {
+
+        alert("Uploaded SuccessFully");
+
+        }); 
+
     </script>
+   
 @endsection
 

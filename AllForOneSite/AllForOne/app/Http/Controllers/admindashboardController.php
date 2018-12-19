@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Event;
+use App\Inschrijving;
 use Illuminate\Http\Request;
 
 class admindashboardController extends Controller
@@ -11,9 +14,16 @@ class admindashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $users = User::all()->count();  
+
+        $eventstotal = Event::all()->count(); 
+
+        $suscribe = Inschrijving::all()->count();
+
+        return view('admindashboard', compact('users'))->with(compact('eventstotal'))->with(compact('suscribe'));
     }
 
     /**

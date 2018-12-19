@@ -24,7 +24,7 @@
                             <th>Bevestigd</th>
                         </tr>
                         @foreach($event->inschrijvings()->get() as $inschrijving)
-                            @if($inschrijving->active == true)
+                            @if($inschrijving->bevestigt == true)
                             <tr>
                                 <td>{{$inschrijving->user()->get()->first()->name}}</td>
                                 <td class="text-center">
@@ -46,11 +46,11 @@
                     </table>
                     @if(!$event->organisatorens()->where('userid', Auth::user()['id'])->first())
                     @if($event->inschrijvings()->where('userid', Auth::user()['id'])->first())
-                        @if($event->inschrijvings()->where('userid', Auth::user()->id)->where('active', true)->first())
+                        {{-- @if($event->inschrijvings()->where('userid', Auth::user()->id)->where('bevestigt', true)->first())
                         <a class="btn btn-danger text-white mt-2 mb-2" href="/allevents/{{$event->id}}/uitschrijven">Uitschrijven</a>
                         @else
                         <a class="btn btn-success text-white mt-2 mb-2" href="/allevents/{{$event->id}}/inschrijving">Inschrijven</a>
-                        @endif
+                        @endif --}}
                     @else
                         <a class="btn btn-success text-white mt-2 mb-2" href="/allevents/{{$event->id}}/inschrijving">Inschrijven</a>
                     @endif

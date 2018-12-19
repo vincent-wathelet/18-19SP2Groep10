@@ -12,7 +12,6 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 
 class EvetsEntriesController extends Controller
 {
@@ -41,8 +40,17 @@ class EvetsEntriesController extends Controller
     {
         $entries = Inschrijving::where('eventid', $id)->get();
 
+      
         return view('myentries', compact('entries', 'id'));
     }
+
+    /* public function myeventdetails($id)
+    {
+        $entries = Inschrijving::where('eventid', $id)->get();
+
+      
+        return view('myentries', compact('entries', 'id'));
+    } */
 
     public function create()
     {
@@ -140,7 +148,9 @@ class EvetsEntriesController extends Controller
 
     public function delete($id) {
         
-        Inschrijving::where('eventid', $id)->delete();
+        Inschrijving::where('eventid', '=',  $id)->delete();
+
+        Organisatoren::where('userId', '=', Auth::User()->id)->delete();
         Event::find($id)->delete();
         return redirect()->back();
     }

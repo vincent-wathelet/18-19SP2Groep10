@@ -212,4 +212,15 @@
         }); 
 
     </script>
+     <script>
+        $('[name="inputCheckboxes"]').on('change', function () {
+            id = $(this).parent().find('.entryid').html();
+            // $.ajax({
+            //     url: 'myevents',
+            //
+            // })
+
+            window.location.href = "{{asset('myevents/accept')}}/" + id;
+        })
+    </script>
 @endsection

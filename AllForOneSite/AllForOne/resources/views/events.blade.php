@@ -35,7 +35,7 @@
                         @foreach($organizations as $org)
                         <tr>
                             <td>{{$org->event['naam']}}</td>
-                            <td>{{substr($org->event['date'], 0, -9)}}</td>
+                            <td>{{date("m/d/Y", strtotime($org->event['begindate']))}}</td>
                             <td>
                                 <span>{{$org->event['lokaal']['lokaal']}}</span>
                             </td>

@@ -104,6 +104,8 @@ class AdminController extends Controller
 
         $admins = Event::find($request->id);
 
+         /* image upload */
+
         $admins->categorieId = $request->categorieId;
         $admins->naam = $request->naam;
         $admins->lokaalId = $request->lokaalId;
@@ -111,12 +113,13 @@ class AdminController extends Controller
         $admins->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
         $admins->description = $request->description;
         $admins->maxInschrijvingen = $request->maxInschrijvingen;
+        $admins->eventimage = $randomFileName;
         $admins->hidden = 0;
 
 
         if($admins->save()){
 
-            return viesw('edit-events');
+            return view('edit-events');
         }
     }
 
@@ -127,6 +130,17 @@ class AdminController extends Controller
         } else {
             $admins = new Event();
         }
+
+        if(isset($request->eventimage)){
+
+            $imageupload = $request->file('eventimage');
+            $fileExt = $imageupload->getClientOriginalExtension();
+            $uploadPath ='uploadPic';
+            $randomFileName = str_random(10).'.'.$fileExt;
+            $imageupload->move($uploadPath, $randomFileName);
+    
+            $admins->eventimage = $randomFileName;
+        }
         
         $admins->categorieId = $request->categorieId;
         $admins->naam = $request->naam;
@@ -135,8 +149,8 @@ class AdminController extends Controller
         $admins->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
         $admins->description = $request->description;
         $admins->maxInschrijvingen = $request->maxInschrijvingen;
+        $admins->eventimage = $randomFileName;
         $admins->hidden = 0;
-        
 
 
        if (isset($request->autoaccept) && $request->autoaccept == 'on') {

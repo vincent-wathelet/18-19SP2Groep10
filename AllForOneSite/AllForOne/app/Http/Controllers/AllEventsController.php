@@ -66,9 +66,6 @@ class AllEventsController extends Controller
 
         $category = explode(",",$selectcategory);    
         
-       /*  print_r($categories);
-        exit(); */
-
         $categoriesEvents = [];
         $categories = Categorie::all();
         $categoriesArray = [];

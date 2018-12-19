@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         if($user['admin'] == 1){
             
-            return view('admindashboard');
+            return redirect('admin-dashboard');
         }
         elseif($user['admin'] == 0){
             Session::flash('alert-danger', 'You are not authorized to access Admin!');
