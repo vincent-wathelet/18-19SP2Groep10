@@ -26,7 +26,7 @@ class Inschrijving extends Model
     /**
      * @var array
      */
-    protected $fillable = ['eventid', 'userid', 'bevestigt', 'aanwezig', 'active','created_at', 'updated_at'];
+    protected $fillable = ['eventid', 'userid', 'bevestigt', 'aanwezig', 'active', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

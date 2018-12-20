@@ -89,10 +89,13 @@ class manageuserController extends Controller
         $users->banned = $request->banned;
 
         $users->save();
+        //If current user is not banned
         if (!$users->banned){
-            $users->update([
-                'faults' => 0
-            ]);
+            //I go through his lack of assistance
+            foreach ($users->Assistances as $assistance){
+                //He cleared his lack of assistance one by one
+                $assistance->delete();
+            }
         }
 
         return redirect('manage-users');

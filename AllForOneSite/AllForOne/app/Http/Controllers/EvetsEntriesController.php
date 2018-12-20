@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AssistenceConfirmation;
 use App\Categorie;
 use App\Event;
 use App\Notifications\EventDeleteNotification;
@@ -176,7 +177,7 @@ class EvetsEntriesController extends Controller
         }
 
         //saved(true)
-        if ($entry->save()){
+        if ($entry->save()) {
             //notifieer de geselecteerde users
             $userNotify->notify(new UserAcceptNotification($event));
         }
@@ -189,22 +190,45 @@ class EvetsEntriesController extends Controller
         $event = Event::find($id);
         //Get accepted users voor de event
         $inschrijvings = Inschrijving::where('eventid', $id)->where('bevestigt', 1)->get();
-
-        return view('acceptedUsers', compact('inschrijvings', 'event'));
+        $endEvent = false;
+        if ($event->enddate <= Carbon::now()->toDateString()){
+            $endEvent = true;
+        }
+        return view('acceptedUsers', compact('inschrijvings', 'event', 'endEvent'));
     }
 
-    public function fault($id)
+    public function fault($id, $event_id)
     {
-        //Get the user marked by "not attending"
-        $user = User::find($id);
-        //Get de faults/fouten (hoeveel keer user er niet was)
-        $faults = $user->faults;
-        $faults ++;
-        $user->update(['faults' => $faults]);
-        //2 keer is gebanned
-        if ($user->faults > '1'){
+        //Creeren new entry
+        AssistenceConfirmation::create([
+            'user_id' => $id,
+            'event_id' => $event_id,
+            'attended' => 0,
+            'missed' => 1,
+        ]);
+        //I get all the tickets that are not in attendance
+        $assistenceConfirmation = AssistenceConfirmation::where('user_id', $id)
+            ->where('attended', 0)
+            ->where('missed', 1)
+            ->get();
+        //2 keer of meer = gebanned
+        if ($assistenceConfirmation->count() > '1') {
+            //De user is gebanned
+            $user = User::find($id);
             $user->update(['banned' => 1]);
         }
+        return redirect()->back()->with('checked', 'checked');
+    }
+
+    public function attended($id, $event_id)
+    {
+        // Creeren new entry
+        AssistenceConfirmation::create([
+            'user_id' => $id,
+            'event_id' => $event_id,
+            'attended' => 1,
+            'missed' => 0,
+        ]);
         return redirect()->back();
     }
 }
