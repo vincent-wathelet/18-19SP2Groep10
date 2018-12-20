@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * EventDetailsController.php
+ * Author: Abdelali Ez Zyn
+ * Last update: 20/12/2018
+ */
 namespace App\Http\Controllers;
 use App\Event;
 use App\Organisatoren;

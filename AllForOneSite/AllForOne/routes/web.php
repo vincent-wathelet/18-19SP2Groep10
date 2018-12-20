@@ -11,35 +11,47 @@
 |
 */
 
+
+
+/* HOMEPAGE ROUTE */
+
 Route::get('/','HomepageController@index');
 
-Route::get('logout', 'Auth\LoginController@logout');
+// toont Auth Routes
 Auth::routes();
 
+// toont Show Homepage
 Route::get('/home', 'HomeController@index')->name('home');
-// toont all eventen
-Route::get('/allevents', 'AllEventsController@index')->name('allevents');
-// toont all events post
-Route::post('/allevents', 'AllEventsController@index')->name('allevents');
 
-Route::post('/allevents-subscribe', 'AllEventsController@subscribe')->name('allevents-subscribe');
+// toont Show Homepage
+Route::get('/homepage', 'HomepageController@index')->name('homepage');
 
-/* Route::get('/allevents-subscribedelete', 'AllEventsController@subscribedelete')->name('allevents-subscribedelete');
- */
-// toont detail van een event
-Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
+
+
+/* LOGOUT ROUTE */
+
+// toont logout
+Route::get('logout', 'Auth\LoginController@logout');
+
+
+
+/* INSCHRIJVING Route */
+
 // schrijft je voor event in
 Route::get('/allevents/{id}/inschrijving','InschrijvingController@Inschrijven');
 Route::get('/allevents/{id}/uitschrijven','InschrijvingController@Uitschrijven');
+
+
+
 //Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
+
 //Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/showevent/{id}', 'EventDetailsController@show')->name('showevent');
 
-Route::get('/logout','Auth\LogoutController@logout');
 Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
 //Route::get('/myeventsdetail', 'EvetsEntriesController@show')->name('eventsentsdetail');
 Route::get('/myevents', 'EvetsEntriesController@index')->name('myevents');
@@ -54,33 +66,87 @@ Route::get('myEntries/details/{id}', 'MyEntriesController@details');
 Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
 
 
+/* ALL EVENTS ROUTES */
+
+// all eventen
+Route::get('/allevents', 'AllEventsController@index')->name('allevents');
+
+// all events post
+Route::post('/allevents', 'AllEventsController@index')->name('allevents');
+
+// all events subscribe
+Route::post('/allevents-subscribe', 'AllEventsController@subscribe')->name('allevents-subscribe');
+
+// detail van een event
+Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
+
+
+
+/* EDIT PAGE ROUTES */
+
+// Events View Page
 Route::get('edit-events', 'AdminController@create');
+
+//  Events Fetch Information
 Route::get('edit-events', 'AdminController@index')->name('edit-events');
+
+//  Events Show Information
 Route::get('edit-events/{id}', 'AdminController@show');
+
+//  Events Edit Information
 Route::get('edit-events/edit/{id}', 'AdminController@edit');
+
+//  Events Update Information
 Route::post('edit-events/save/{id?}', 'AdminController@save')->name('edit-events_save');
+
+//  Events Delete Information
 Route::get('edit-events/delete/{id}', 'AdminController@delete');
 
-Route::get('manage-users', 'manageuserController@create')->name('manage-users');
-Route::get('manage-users', 'manageuserController@index')->name('manage-users');
-Route::get('manage-users/edit/{id}', 'manageuserController@edit');
-Route::post('manage-users', 'manageuserController@update')->name('manage-users');
-Route::get('manage-users/delete/{id}', 'manageuserController@delete');
 
-Route::get('manage-users-create', 'manageuserController@regcreate')->name('manage-users-create');
-Route::post('manage-users-store', 'manageuserController@regstore')->name('manage-users-store');
 
-Route::get('/homepage', 'HomepageController@index')->name('homepage');
+/* EDIT PAGE ROUTES */
 
+// Users create view page
+Route::get('manage-users', 'ManageUsersController@create')->name('manage-users');
+
+//  Users Fetch Information
+Route::get('manage-users', 'ManageUsersController@index')->name('manage-users');
+
+//  Users Edit Information
+Route::get('manage-users/edit/{id}', 'ManageUsersController@edit');
+
+//  Users Update Information
+Route::post('manage-users', 'ManageUsersController@update')->name('manage-users');
+
+//  Users Delete Information
+Route::get('manage-users/delete/{id}', 'ManageUsersController@delete');
+
+//  Users create Register Information
+Route::get('manage-users-create', 'ManageUsersController@regcreate')->name('manage-users-create');
+
+// Users create Register Information Store
+Route::post('manage-users-store', 'ManageUsersController@regstore')->name('manage-users-store');
+
+
+
+/* Profile Route */
+
+// Profile Create View Information
 Route::get('/profile', 'ProfileController@create')->name('profile');
+
+// Profile Update information
 Route::post('/profile', 'ProfileController@update')->name('profile');
 
 
-Route::get('admin-dashboard', 'admindashboardController@create')->name('admin-dashboard');
 
-Route::get('admin-dashboard', 'admindashboardController@index')->name('admin-dashboard');
+/* Admin Dashboard Route*/
 
+// admin dashboard create page
+Route::get('admin-dashboard', 'AdminDashboardController@create')->name('admin-dashboard');
+
+// admin dashboard index page
+Route::get('admin-dashboard', 'AdminDashboardController@index')->name('admin-dashboard');
+
+// admin user page
 Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
 
-
-/* Route::get('subscribe', 'SubscribeController@subscribe')->name('subscribe'); */

@@ -1,19 +1,24 @@
+<!--
+* shared/alleventslist.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 @foreach($categories as $categorie)
 <?php
-if(!array_key_exists($categorie->id,$categoriesEvents))
+if(!array_key_exists($categorie->id,$categoriesEvents)) // Check array value not exit -> doorgaan
         continue;
 ?>         
 <h4>{{$categorie->naam}}</h4>
-@if($categoriesEvents[$categorie->id]->isEmpty())
-<p>No events Found</p>
+@if($categoriesEvents[$categorie->id]->isEmpty())  {{-- category id empty check --}} 
+<p>No events found!</p>
 @else            
 <div class="row borders">
-    @foreach( $categoriesEvents[$categorie->id] as $categoriesEvent)
+    @foreach( $categoriesEvents[$categorie->id] as $categoriesEvent)  {{-- category id passed --}}
     
         <div class="col-md-4">
             <div class="card">
                 <div class="images">
-                        <img src="{{ URL::asset('uploadPic/'.$categoriesEvent->eventimage) }}" onerror="this.onerror=null;this.src='{{ asset('assets/images/avatar.png')}}';" class="img" alt="Avatar" style="width:100%; height: 141px; ">
+                        <img src="{{ URL::asset('uploadPic/'.$categoriesEvent->eventimage) }}" onerror="this.onerror=null;this.src='{{ asset('assets/images/avatar.ico')}}';" class="img" alt="Avatar" style="width:100%; height: 141px; ">
                 </div>
                 <div class="cardcontainer">
                    <div class="row"> 
@@ -52,5 +57,3 @@ if(!array_key_exists($categorie->id,$categoriesEvents))
 </div>    
 @endif                        
 @endforeach
-
-

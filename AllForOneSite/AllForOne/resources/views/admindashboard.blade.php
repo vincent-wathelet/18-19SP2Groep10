@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+<!--
+* admindashboard.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        
@@ -54,7 +59,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{ $eventstotal }}</div>
-                            <div>Total Event</div>
+                            <div>Total Events</div>
                         </div>
                         </div>
                     </div>
@@ -75,8 +80,8 @@
                             <i class="fa fa-check fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{$suscribe}}</div>
-                            <div>Total Subscribe</div>
+                            <div class="huge">{{$subscribe}}</div>
+                            <div>Total Subscriptions</div>
                         </div>
                         </div>
                     </div>

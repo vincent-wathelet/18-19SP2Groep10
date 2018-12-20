@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top sticky-top">
             @if (Auth::guest())
               <a class="navbar-brand navbar-brand-center" href="http://127.0.0.1:8000/home">
-            <img class="navbar-brand-logo navbar-brand-logo-special" src="http://127.0.0.1:8000/assets/images/logo-blue.png" title="Remark">
+            <img class="navbar-brand-logo navbar-brand-logo-special" src="http://127.0.0.1:8000/assets/images/logo.png" title="Remark">
             <span class="navbar-brand-text"> AllForOne</span>
         </a>
             @else

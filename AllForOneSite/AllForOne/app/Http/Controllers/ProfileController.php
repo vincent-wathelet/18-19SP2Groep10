@@ -17,7 +17,6 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        
 
         return view('profile');
     }
@@ -27,12 +26,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // profile create and fetch function
     public function create(Request $request)
     {
-        
         $users = Auth::User();
-
-        
+    
         return view('profile', compact('users'));
     }
 
@@ -82,23 +80,18 @@ class ProfileController extends Controller
             'name' => 'required',
             'email' => 'required|string|email|max:255',
             'password' => 'confirmed'
-            /* 'password_confirmation' => ' ' */
         ]);
-        
 
         $users = User::find(Auth::User()->id);
-        
         $users->name = $request->name;    
         $users->email = $request->email;
-
         $password = [];
         if ($request->get('fieldPass')) {
             $password['password'] = Hash::make($request->get('password'));
-            $users->update($password);
-        }elseif($request->password){
+            $users->update($password);                   
+        }elseif($request->password){   
             $users->password = Hash::make($request->password);
         }
-
         if($users->save()){
             return redirect('profile');
         }

@@ -33,10 +33,10 @@
                         <thead>
                         <tr>
                             {{-- <td>id</td> --}}
-                            <td>naam</td>
-                            <td class="text-center">acount Status</td>
-                            <td class="text-center">Accepted</td>
-                            <td class="text-center">Geweigerd</td>
+                            <td>Name</td>
+                            <td class="text-center">Acountstatus</td>
+                            <td class="text-center">Accept</td>
+                            <td class="text-center">Refuse</td>
                         </tr>
                         </thead>
                         <tbody>

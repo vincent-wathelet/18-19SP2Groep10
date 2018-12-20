@@ -57,7 +57,7 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
+<nav class="site-navbar navbar navbar-default bg-dark navbar-fixed-top navbar-mega navbar-inverse"
      role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
@@ -189,5 +189,15 @@
         });
     })(document, window, jQuery);
 </script>
+<style>
+.bg-dark {
+    color: #fff;
+    background-color: #343a40;
+}
+.bg-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+</style>
 </body>
 </html>

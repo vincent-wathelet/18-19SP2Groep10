@@ -1,11 +1,16 @@
 @extends('layout')
 
 @section('content')
+<!--
+* allevents.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 <div class="container">
 	<div class="col-lg-3">
         {{ csrf_field() }}
         <div class="optionsDiv">
-            <h4>Categorie-Filter</h4>
+            <h4>Categorie</h4>
             <select  id="selectcategory" name="selectcategory[]" class="js-select2" multiple="multiple">
             
                 @foreach($categories as $category)
@@ -29,6 +34,8 @@
 @section('js')
 <script type="text/javascript">
 
+   /* Ajax */
+
    $(document).ready(function(){
         
         $("select").change(function(){
@@ -49,7 +56,6 @@
         });
 
     });
-
 
     /* subscribe */
     /* onclick */
@@ -85,7 +91,6 @@
 
      }); 
     
-  
     $eventSelect = $(".js-select2");
 
     $(".js-select2").select2({
@@ -107,11 +112,6 @@
         return $('<span><i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text + '<span class="badge">' + originalOptionBadge + '</span></span>');
     }
 
-       
-
-
     </script>
     
 @endsection
-
-

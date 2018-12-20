@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.min.css')}}">
 @endsection
 @section('content')
+<!--
+* admineventsedit.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        
@@ -25,10 +30,10 @@
             <div class="col col-sm-6">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Categorie: </label>
+                        <label class="col-sm-3 control-label">Category: </label>
                         <div class="col-sm-9">
                             <select class="form-control" required name="categorieId">
-                                <option value="">select category</option>
+                                <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                     <option
                                             @if (isset($admins) && $admins->categorieId == $category->id)
@@ -48,14 +53,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Start Datum: </label>
+                        <label class="col-sm-3 control-label">Startdate: </label>
                         <div class="col-sm-9">
                             <input class="form-control" value="@if (isset($admins)) {{date("m/d/Y H:i", strtotime($admins->begindate))}}@endif" name="begindate" id="begindate" placeholder="" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">End Datum: </label>
+                        <label class="col-sm-3 control-label">Enddate: </label>
                         <div class="col-sm-9">
                             <input class="form-control"
                                    value="@if (isset($admins)) {{date("m/d/Y H:i", strtotime($admins->enddate))}}@endif" name="enddate" id="enddate" placeholder="" required >
@@ -63,7 +68,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Auto Accept: </label>
+                        <label class="col-sm-3 control-label">Autoaccept: </label>
                         <div class="col-sm-1">
                             <input type="checkbox" class="icheckbox-primary form-control" name="autoaccept"
                                    data-plugin="iCheck" data-checkbox-class="icheckbox_flat-blue" value="{{ $admins['autoaccept'] }}"
@@ -74,7 +79,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Max Number subscription: </label>
+                        <label class="col-sm-4 control-label">Max Subscriptions: </label>
                         <div class="col-sm-8">
                             <input type="number"  value="@if (isset($admins)){{(int)$admins->maxInschrijvingen}}@endif" class="form-control" name="maxInschrijvingen" />
                         </div>
@@ -85,7 +90,7 @@
             <div class="col col-sm-6">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Computer Needed: </label>
+                        <label class="col-sm-3 control-label">Computers Needed: </label>
                         <div class="col-sm-1">
                             <input type="checkbox" class="icheckbox-primary form-control" name="computer_needed"
                                    data-plugin="iCheck" data-checkbox-class="icheckbox_flat-blue"
@@ -93,10 +98,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Lokaal: </label>
+                        <label class="col-sm-3 control-label">Classroom: </label>
                         <div class="col-sm-4">
                             <select class="form-control" name="lokaalId" required>
-                                <option value="">No room</option>
+                                <option value="">No Classroom</option>
                                 @foreach($lokaal as $item)
                                     <option
                                             @if (isset($admins) && $admins->lokaalId == $item->id)
@@ -117,7 +122,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Image Uploaded: </label>
+                        <label class="col-sm-3 control-label">Upload image: </label>
                         <div class="col-sm-9" style="padding-top: 7%; " >
                             <input  type="file" value="" id="eventimage" name="eventimage" requird/>
                             
@@ -131,7 +136,7 @@
                                         @if (isset($admins))
                                             <img src="{{ URL::asset('uploadPic/'.$admins->eventimage) }}">
                                         @else
-                                            <p>No image found</p>
+                                            <p>No image found!</p>
                                         @endif
 
                                 </div>
@@ -214,11 +219,10 @@ $(this).toggleClass("active");
 
         {
 
-        alert("Uploaded SuccessFully");
+        alert("Succesfully uploaded.");
 
         }); 
 
     </script>
    
 @endsection
-

@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+<!--
+* manageuser.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        
@@ -16,11 +21,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
                         <th>Admin</th>
-                        <th>banned</th>
+                        <th>Banned</th>
                         <th>Action</th>
                     </tr>
                 </thead>

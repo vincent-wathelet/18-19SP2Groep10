@@ -22,35 +22,25 @@ class EvetsEntriesController extends Controller
 
     public function index()
     {
-        $organizations = Organisatoren::where('userId', Auth::User()->id)->get();
-        
-
+        $organizations = Organisatoren::where('userId', Auth::User()->id)->get();   // Fetch current user organisatoren
+    
         return view('events', compact('organizations'));
     }
 
     public function detail()
     {
-        $categories = Categorie::all();
-        $lokaal = Lokaal::all();
+        $categories = Categorie::all();        
+        $lokaal = Lokaal::all();                
 
         return view('eventdetails', compact('categories', 'lokaal'));
     }
 
     public function show($id)
     {
-        $entries = Inschrijving::where('eventid', $id)->get();
+        $entries = Inschrijving::where('eventid', $id)->get();  
 
-      
         return view('myentries', compact('entries', 'id'));
     }
-
-    /* public function myeventdetails($id)
-    {
-        $entries = Inschrijving::where('eventid', $id)->get();
-
-      
-        return view('myentries', compact('entries', 'id'));
-    } */
 
     public function create()
     {
@@ -62,6 +52,7 @@ class EvetsEntriesController extends Controller
         return view('eventdetails', compact('categories', 'lokaal', 'user'));
     }
 
+    // All events insert
     public function save($id=null, Request $request)
     {
         if ($id) {
@@ -70,13 +61,13 @@ class EvetsEntriesController extends Controller
             $event = new Event();
         }
 
-        /* image upload */
+        // Image upload  function 
 
         if(isset($request->eventimage)){
 
-            $imageupload = $request->file('eventimage');
-            $fileExt = $imageupload->getClientOriginalExtension();
-            $uploadPath ='uploadPic';
+            $imageupload = $request->file('eventimage');                   
+            $fileExt = $imageupload->getClientOriginalExtension();       // Accept png, jpg ,gif ,svg    
+            $uploadPath ='uploadPic';                                   // Image store path name
             $randomFileName = str_random(10).'.'.$fileExt;
             $imageupload->move($uploadPath, $randomFileName);
     
