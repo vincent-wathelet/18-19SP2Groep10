@@ -1,14 +1,19 @@
 <?php
-
+/**
+ * AdminController.php
+ * Author: Abdelali Ez Zyn
+ * Last update: 20/12/2018
+ */
 namespace App\Http\Controllers;
 
 use App\Event;
-use App\Admin;
 use App\Categorie;
 use App\Lokaal;
 use App\Inschrijving;
 use App\Organisatoren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Query\Builder;
 
 class AdminController extends Controller
 {
@@ -17,11 +22,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // Event Fetch function
     public function index()
     {
         $admins = Event::all();
-
-        
         return view('adminevents', compact('admins'));
     }
 
@@ -30,26 +35,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // Event viewpage function
     public function create()
     {
-        
         return view('adminevents');
-    }
-    public function adminhome()
-    {
-        
-        return view('adminpage');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -58,16 +48,11 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
+
+    // Event show function
     public function show(Request $request, $id)
     {
-
-      /*   $entries = Inschrijving::all(); */
-        
-       $entries = Inschrijving::where('eventid', $id)->get();
-
-       /*  print_r($entries);
-        exit(); */
-
+        $entries = Inschrijving::where('eventid', $id)->get();
         return view('adminentries', compact('entries'));
     }
 
@@ -77,15 +62,15 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
+
+    // Event edit function 
     public function edit($id)
     {
         $admins = Event::find($id);
-
         $categories = Categorie::all();
-        $lokaal = Lokaal::all();    
+        $lokaal = Lokaal::all();
 
-        
-        return view('adminentriesedit', compact('categories', 'lokaal', 'admins'));
+        return view('admineventsedit', compact('categories', 'lokaal', 'admins'));
     }
 
     /**
@@ -95,28 +80,8 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
 
-
-        $admins = Event::find($request->id);
-
-        $admins->categorieId = $request->categorieId;
-        $admins->naam = $request->naam;
-        $admins->lokaalId = $request->lokaalId;
-        $admins->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
-        $admins->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
-        $admins->description = $request->description;
-        $admins->maxInschrijvingen = $request->maxInschrijvingen;
-        $admins->hidden = 0;
-
-
-        if($admins->save()){
-
-            return viesw('edit-events');
-        }
-    }
-
+    // Event update function
     public function save($id=null, Request $request)
     {
         if ($id) {
@@ -124,6 +89,15 @@ class AdminController extends Controller
         } else {
             $admins = new Event();
         }
+
+        if(isset($request->eventimage)){
+            $imageupload = $request->file('eventimage');
+            $fileExt = $imageupload->getClientOriginalExtension();
+            $uploadPath ='uploadPic';
+            $randomFileName = str_random(10).'.'.$fileExt;
+            $imageupload->move($uploadPath, $randomFileName);
+            $admins->eventimage = $randomFileName;
+        }
         
         $admins->categorieId = $request->categorieId;
         $admins->naam = $request->naam;
@@ -132,28 +106,27 @@ class AdminController extends Controller
         $admins->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
         $admins->description = $request->description;
         $admins->maxInschrijvingen = $request->maxInschrijvingen;
+        $admins->eventimage = $randomFileName;
         $admins->hidden = 0;
-        
-
 
        if (isset($request->autoaccept) && $request->autoaccept == 'on') {
             $admins->autoaccept = true;
         } else {
             $admins->autoaccept = false;
         }
-
         $admins->save();
     
-         
         return redirect('edit-events');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
+
+    // Event delete function 
     public function delete($id) {
         
         Organisatoren::where('eventId', $id)->delete();

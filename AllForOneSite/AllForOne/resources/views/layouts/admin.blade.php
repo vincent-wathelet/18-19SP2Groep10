@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
-    <title>Project</title>
+    <title>AllForOne</title>
   
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,8 +14,10 @@
      rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/site.min.css')}}">
+    <link href="{{ asset('css/multiselect.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
  
 
     @yield('css')
@@ -43,7 +45,7 @@
                          title="Remark"> --}}
                     <img class="navbar-brand-logo navbar-brand-logo-special" src="{{ asset('assets/images/logo-blue.png')}}"
                          title="Remark">
-                    <span class="navbar-brand-text"> Project</span>
+                    <span class="navbar-brand-text"> AllForOne</span>
                 </a>
                 <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
                         data-toggle="collapse">

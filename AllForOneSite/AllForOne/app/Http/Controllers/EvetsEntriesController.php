@@ -22,23 +22,22 @@ class EvetsEntriesController extends Controller
 
     public function index()
     {
-        $organizations = Organisatoren::where('userId', Auth::User()->id)->get();
-        
-
+        $organizations = Organisatoren::where('userId', Auth::User()->id)->get();   // Fetch current user organisatoren
+    
         return view('events', compact('organizations'));
     }
 
     public function detail()
     {
-        $categories = Categorie::all();
-        $lokaal = Lokaal::all();
+        $categories = Categorie::all();        
+        $lokaal = Lokaal::all();                
 
         return view('eventdetails', compact('categories', 'lokaal'));
     }
 
     public function show($id)
     {
-        $entries = Inschrijving::where('eventid', $id)->get();
+        $entries = Inschrijving::where('eventid', $id)->get();  
 
         return view('myentries', compact('entries', 'id'));
     }
@@ -53,6 +52,7 @@ class EvetsEntriesController extends Controller
         return view('eventdetails', compact('categories', 'lokaal', 'user'));
     }
 
+    // All events insert
     public function save($id=null, Request $request)
     {
         if ($id) {
@@ -60,15 +60,30 @@ class EvetsEntriesController extends Controller
         } else {
             $event = new Event();
         }
-        $event->categorieId = $request->categorieId;
-        $event->naam = $request->naam;
-        $event->lokaalId = $request->lokaalId;
-        $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
-        $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
-        $event->description = $request->description;
-        $event->maxInschrijvingen = $request->maxInschrijvingen;
-        $event->hidden = 0;
+
+        // Image upload  function 
+
+        if(isset($request->eventimage)){
+
+            $imageupload = $request->file('eventimage');                   
+            $fileExt = $imageupload->getClientOriginalExtension();       // Accept png, jpg ,gif ,svg    
+            $uploadPath ='uploadPic';                                   // Image store path name
+            $randomFileName = str_random(10).'.'.$fileExt;
+            $imageupload->move($uploadPath, $randomFileName);
+    
+            $event->eventimage = $randomFileName;
+        }
+
+            $event->categorieId = $request->categorieId;
+            $event->naam = $request->naam;
+            $event->lokaalId = $request->lokaalId;
+            $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
+            $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
+            $event->description = $request->description;
+            $event->maxInschrijvingen = $request->maxInschrijvingen;
+            $event->hidden = 0;
         
+
 
 
         /* $new_startdate = date("Y-m-d H:i:s", strtotime($event->begindate));
@@ -102,23 +117,31 @@ class EvetsEntriesController extends Controller
         }
 
         $event->save();
+           if (!$id) {
+                 $organization = new Organisatoren();
+                 $organization->eventId = $event->id;
+                 $organization->userId = Auth::User()->id; 
+                 $organization->save();
+             }
     
-            if (!$id) {
+           /*  if (!$id) {
                 $organization = new Organisatoren();
             } else {
                 $organization = Organisatoren::find($event->id);
             }
             $organization->eventId = $event->id;
-            $organization->userId = Auth::User()->id;
+            $organization->userId = Auth::User()->id; */
            /*  $organization->naam = $request->naam; */
-            $organization->save();
+            /* $organization->save(); */
         return redirect('myevents');
     }
 
 
     public function delete($id) {
         
-        Inschrijving::where('eventid', $id)->delete();
+        Inschrijving::where('eventid', '=',  $id)->delete();
+
+        Organisatoren::where('userId', '=', Auth::User()->id)->delete();
         Event::find($id)->delete();
         return redirect()->back();
     }

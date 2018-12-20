@@ -26,17 +26,17 @@
                 <hr>
                 <div class="table-responsive">
                     <div class="col-sm-6"><span class="pull-left">Number of subscribers: {{count($entries)}}</span></div>
-                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div>
+                   {{-- <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div> --}}
                     <br>
                     <br>
                     <table class="table table-striped font-size-16">
                         <thead>
                         <tr>
                             {{-- <td>id</td> --}}
-                            <td>naam</td>
-                            <td class="text-center">acount Status</td>
-                            <td class="text-center">Accepted</td>
-                            <td class="text-center">Geweigerd</td>
+                            <td>Name</td>
+                            <td class="text-center">Acountstatus</td>
+                            <td class="text-center">Accept</td>
+                            <td class="text-center">Refuse</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,15 +45,16 @@
                                 {{-- <td>{{$entry->userid}}</td> --}}
 
                                 <td>{{$entry->user->name}}</td>
+
                                 <td class="text-center">
-                                    <i
-                                            @if($entry->user->banned == true)
-                                            class="icon fa-check-square"
+                                    <i @if($entry->user->banned == true)
+                                                class="icon fa-exclamation-triangle"
                                             @else
-                                            class="icon fa-exclamation-triangle"
+                                                class="icon fa-check-square"
                                             @endif
                                             aria-hidden="true"></i>
                                 </td>
+
                                 <td>
                                     <div class="checkbox-custom checkbox-default">
                                         <input type="checkbox" name="inputCheckboxes"

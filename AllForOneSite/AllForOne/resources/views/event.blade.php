@@ -11,7 +11,6 @@
                 <br>
                 <p><span class="text-uppercase font-weight-bold"> omschrijving</span> <br>{{$event->description}}</p>
 
-                <!-- TODO if structuur die kijk of event al is gedaan en de gebruiker naar het event is geweest -->
                 <form action="/myRating/addeventreview" method="post">
                     {{ csrf_field() }}
                     <h3>Feedback Event</h3>

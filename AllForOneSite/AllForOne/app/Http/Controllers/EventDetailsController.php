@@ -1,8 +1,14 @@
 <?php
-
+/**
+ * EventDetailsController.php
+ * Author: Abdelali Ez Zyn
+ * Last update: 20/12/2018
+ */
 namespace App\Http\Controllers;
-
+use App\Event;
+use App\Organisatoren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventDetailsController extends Controller
 {
@@ -25,5 +31,13 @@ class EventDetailsController extends Controller
     {
 
         return view('eventdetails');
+    }
+
+    public function show($id){
+        if(Organisatoren::where(['eventid'=>$id,'userId'=> Auth::User()->id])->first() != null )  {
+             return view('event',['event'=> Event::find($id)]);
+        }else{
+            return redirect('myEntries');
+        }       
     }
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
-    <title>Project</title>
+    <title>AllForOne</title>
     
     <link rel="apple-touch-icon" href="{{ asset('assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
@@ -22,11 +22,18 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/slidepanel/slidePanel.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/waves/waves.css')}}">
+    
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('global/fonts/glyphicons/glyphicons.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/material-design/material-design.min.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/brand-icons/brand-icons.min.css')}}">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/multiselect.css') }}" rel="stylesheet">
     
 
     @yield('css')
@@ -50,7 +57,7 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
+<nav class="site-navbar navbar navbar-default bg-dark navbar-fixed-top navbar-mega navbar-inverse"
      role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
@@ -67,7 +74,7 @@
                  title="Remark">
             <img class="navbar-brand-logo navbar-brand-logo-special" src="{{ asset('assets/images/logo-blue.png')}}"
                  title="Remark">
-            <span class="navbar-brand-text"> Project</span>
+            <span class="navbar-brand-text"> AllForOne</span>
         </a>
         <button type="button" class="navbar-toggle collapsed" data-target="#site-navbar-search"
                 data-toggle="collapse">
@@ -170,7 +177,8 @@
 <script src="{{ asset('global/js/components/slidepanel.js')}}"></script>
 <script src="{{ asset('global/js/components/switchery.js')}}"></script>
 <script src="{{ asset('global/js/components/tabs.js')}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="{{ asset('js/myjs.js') }}"></script>
 @yield('js')
 <script>
     (function (document, window, $) {
@@ -181,5 +189,15 @@
         });
     })(document, window, jQuery);
 </script>
+<style>
+.bg-dark {
+    color: #fff;
+    background-color: #343a40;
+}
+.bg-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+</style>
 </body>
 </html>

@@ -29,6 +29,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // Home page view function
     public function index()
     {
        
@@ -36,15 +38,16 @@ class HomeController extends Controller
        
     }
 
+    // check  admin or user 
+
     public function check(Request $request){
         $user = Auth::user();
         $id = Auth::id();
 
-        if($user['admin'] == 1){
-            
-            return view('admindashboard');
+        if($user['admin'] == 1){                    //admin 1 equal 1 You are authorized to access Admin
+            return redirect('admin-dashboard'); 
         }
-        elseif($user['admin'] == 0){
+        elseif($user['admin'] == 0){                 //admin 1 !equal 1 You are not authorized to access Admin
             Session::flash('alert-danger', 'You are not authorized to access Admin!');
             return redirect('homepage');
         }

@@ -1,5 +1,10 @@
 @extends('layout')
 @section('content');
+<!--
+* events.blade.php
+* Author: Abdelali Ez Zyn
+* Last update: 20/12/2018
+-->
 <div class="page-main container">
     {{--<div class="page-header">--}}
     {{--<h1 class="page-title">Two Columns</h1>--}}
@@ -24,9 +29,9 @@
                     <table class="table table-striped font-size-16">
                         <thead>
                         <tr>
-                            <td>naam</td>
-                            <td>datum</td>
-                            <td>locatie</td>
+                            <td>Name</td>
+                            <td>Date</td>
+                            <td>Location</td>
                             <td>Actions</td>
                         </tr>
                         </thead>
@@ -35,7 +40,7 @@
                         @foreach($organizations as $org)
                         <tr>
                             <td>{{$org->event['naam']}}</td>
-                            <td>{{substr($org->event['date'], 0, -9)}}</td>
+                            <td>{{date("m/d/Y", strtotime($org->event['begindate']))}}</td>
                             <td>
                                 <span>{{$org->event['lokaal']['lokaal']}}</span>
                             </td>

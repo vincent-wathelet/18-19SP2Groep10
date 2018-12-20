@@ -30,11 +30,11 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                            
                         @foreach($entries as $entry)
                             <tr>
                                 <td>{{$entry->event->naam}}</td>
-                                <td>{{substr($entry->event->date, 0 , -9)}}</td>
+                                <td>{{date("m/d/Y", strtotime($entry->event->begindate))}}</td>
                                 <td>
                                     <span>{{$entry->event->lokaal->lokaal}}</span>
                                 </td>
@@ -59,7 +59,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{asset('myevents/show/'.$entry->event->id)}}"
+                                    <a href="{{asset('showevent/'.$entry->event->id)}}"
                                        class="btn btn-sm btn-icon btn-pure btn-default"
                                        data-toggle="tooltip"
                                        data-original-title="Detail">
@@ -119,7 +119,7 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{asset('myevents/show/'.$entry->event->id)}}"
+                                        <a href="{{asset('showevent/'.$entry->event->id)}}"
                                            class="btn btn-sm btn-icon btn-pure btn-default"
                                            data-toggle="tooltip"
                                            data-original-title="Detail">
