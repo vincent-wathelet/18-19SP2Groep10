@@ -28,7 +28,7 @@
                                     name
                                 </th>
                                 <th>
-                                    opciones
+                                    options
                                 </th>
                             </tr>
                             </thead>
@@ -48,7 +48,7 @@
                                         <div class="checkbox-custom checkbox-default">
                                             <input type="checkbox" name="attended"
                                                    data-toggle="tooltip"
-                                                   data-original-title="check if this user is attended the event"
+                                                   data-original-title="check if this user attended"
                                             />
                                             <label>Attended</label>
                                             <div class="hide userid">{{ $inschrijving->user->id }}</div>
@@ -57,7 +57,7 @@
                                         <div class="checkbox-custom checkbox-default">
                                             <input type="checkbox" name="fault"
                                                    data-toggle="tooltip"
-                                                   data-original-title="check if this user is missing"
+                                                   data-original-title="check if this user missed"
 
                                             />
                                             <label>Missed</label>
@@ -87,20 +87,13 @@
         $('[name="fault"]').on('change', function () {
             id = $(this).parent().find('.userid').html();
             event_id = $(this).parent().find('.eventid').html();
-            // $.ajax({
-            //     url: 'myevents',
-            //
-            // })
 
             window.location.href = "{{asset('myevents/fault')}}/" + id + "/" + event_id;
         })
+        
         $('[name="attended"]').on('change', function () {
             id = $(this).parent().find('.userid').html();
             event_id = $(this).parent().find('.eventid').html();
-            // $.ajax({
-            //     url: 'myevents',
-            //
-            // })
 
             window.location.href = "{{asset('myevents/attended')}}/" + id + "/" + event_id;
         })
