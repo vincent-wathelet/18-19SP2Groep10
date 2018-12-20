@@ -69,7 +69,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                    @else
+                    @else  
                         <h1>The event {{ $event->naam }} has finished</h1>
                     @endif
                 </div>
@@ -84,13 +84,14 @@
     <script src="{{ asset('global/vendor/icheck/icheck.min.js')}}"></script>
     <script src="{{ asset('global/js/components/icheck.js')}}"></script>
     <script>
+        //niet aanwezig op basis van user en event
         $('[name="fault"]').on('change', function () {
             id = $(this).parent().find('.userid').html();
             event_id = $(this).parent().find('.eventid').html();
 
             window.location.href = "{{asset('myevents/fault')}}/" + id + "/" + event_id;
         })
-        
+        //aanwezig op basis van user en event
         $('[name="attended"]').on('change', function () {
             id = $(this).parent().find('.userid').html();
             event_id = $(this).parent().find('.eventid').html();

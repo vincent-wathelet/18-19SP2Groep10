@@ -232,3 +232,4 @@ class EvetsEntriesController extends Controller
         return redirect()->back();
     }
 }
+

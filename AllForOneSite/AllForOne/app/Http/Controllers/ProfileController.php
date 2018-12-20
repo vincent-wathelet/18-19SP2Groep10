@@ -85,7 +85,7 @@ class ProfileController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
 
-        //get the current login user
+        //get the current logged user
         $user = User::find(Auth::User()->id);
 
         $user->name = $request->name;
@@ -94,13 +94,13 @@ class ProfileController extends Controller
         if (is_null($request->password)) {
             $user->save();
             //if not null and the pass equals the current password and the password_confirmation field is not null
-            //the password change for the password_confirmation field encrypted
         } else {
+            //check voor de passw van de user
             if (Hash::check($request->password, Auth::User()->password)) {
                 if (!is_null($request->password_confirmation)) {
                     //validate the password with 1 letter uppercase 1 letter lowercase and 1 number
                     if (count($this->strong_password($request->password_confirmation)) === 0) {
-                        // encrypted the password_confirmation field with mutator of model User
+                        // encryptie the password_confirmation field
                         $user->password = $request->password_confirmation;
                         // save the data of current user
                         $user->save();
@@ -109,7 +109,7 @@ class ProfileController extends Controller
                     }
 
                 } else {
-                    // als password_confirmation veld null is, een error is verstuurd
+                    // if password_confirmation veld = null
                     $this->validate($request, [
                         'name' => 'required',
                         'email' => 'required|string|email|max:255',
@@ -118,7 +118,7 @@ class ProfileController extends Controller
                     ]);
                 }
             } else {
-                // als passw != 1ste passwoord, een error is verstuurd
+                // if passw != 1ste passwoord, error
                 return redirect()->back()->with('noMatchPassword', 'The password no match with the current password!');
             }
         }
@@ -132,6 +132,8 @@ class ProfileController extends Controller
      * @param  $password
      * @return array->errors
      */
+
+     //extra: passwoord versterken
     function strong_password($password)
     {
         $uppercase = preg_match('@[A-Z]@', $password);

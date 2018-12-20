@@ -9,7 +9,7 @@
             <div class="panel-heading padding-top-15">
                 <div class="row">
                     <div class="col col-sm-10">
-                        <h2 class="panel-title">My Entry's</h2>
+                        <h2 class="panel-title">My Entries</h2>
                     </div>
                 </div>
             </div>
@@ -21,12 +21,12 @@
                     <table class="table table-striped font-size-16">
                         <thead>
                         <tr>
-                            <td>naam</td>
-                            <td>datum</td>
-                            <td>locatie</td>
+                            <td>Name</td>
+                            <td>Date</td>
+                            <td>Location</td>
                             <td class="text-center">Accepted</td>
                             <td class="text-center">Leave</td>
-                            <td class="text-center">Detail</td>
+                            <td class="text-center">Details</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -76,7 +76,7 @@
             <div class="panel-heading padding-top-15">
                 <div class="row">
                     <div class="col col-sm-10">
-                        <h2 class="panel-title">My Archived Entry's</h2>
+                        <h2 class="panel-title">My Archived Entries</h2>
                     </div>
                 </div>
             </div>
@@ -88,11 +88,11 @@
                     <table class="table table-striped font-size-16">
                         <thead>
                         <tr>
-                            <td>naam</td>
-                            <td>datum</td>
-                            <td>locatie</td>
+                            <td>Name</td>
+                            <td>Date</td>
+                            <td>Location</td>
                             <td class="text-center">Review</td>
-                            <td class="text-center">Detail</td>
+                            <td class="text-center">Details</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -144,10 +144,6 @@
     <script>
         $('[name="inputCheckboxes"]').on('change', function () {
             id = $(this).parent().find('.entryid').html();
-            // $.ajax({
-            //     url: 'myevents',
-            //
-            // })
 
             window.location.href = "{{asset('myevents/accept')}}/" + id;
         })

@@ -20,7 +20,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Admin</th>
-                        <th>banned</th>
+                        <th>Banned</th>
                         <th>Action</th>
                     </tr>
                 </thead>
