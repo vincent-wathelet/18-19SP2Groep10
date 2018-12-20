@@ -52,7 +52,7 @@
                                         echo "Yes";
                                     }
                                 ?>
-                            </td>    
+                            </td>
 
                            <td>
                            <a href="manage-users/edit/{{ $user['id'] }}"> <button class="btn">Edit</button></a>

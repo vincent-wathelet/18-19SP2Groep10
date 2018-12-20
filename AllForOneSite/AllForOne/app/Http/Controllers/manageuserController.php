@@ -89,6 +89,11 @@ class manageuserController extends Controller
         $users->banned = $request->banned;
 
         $users->save();
+        if (!$users->banned){
+            $users->update([
+                'faults' => 0
+            ]);
+        }
 
         return redirect('manage-users');
     }

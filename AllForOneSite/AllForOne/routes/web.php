@@ -49,6 +49,8 @@ Route::get('myevents/delete/{id}', 'EvetsEntriesController@delete');
 Route::get('myevents/edit/{id}', 'EvetsEntriesController@edit');
 Route::get('myevents/show/{id}', 'EvetsEntriesController@show');
 Route::get('myevents/accept/{id}', 'EvetsEntriesController@accept');
+Route::get('myevents/acceptedUsers/{id}', 'EvetsEntriesController@acceptUsers')->name('acceptUsers');
+Route::get('myevents/fault/{id}', 'EvetsEntriesController@fault')->name('fault');
 Route::get('/myEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
 

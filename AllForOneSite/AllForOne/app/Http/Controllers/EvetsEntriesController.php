@@ -27,7 +27,6 @@ class EvetsEntriesController extends Controller
     {
         $organizations = Organisatoren::where('userId', Auth::User()->id)->get();
 
-
         return view('events', compact('organizations'));
     }
 
@@ -164,9 +163,9 @@ class EvetsEntriesController extends Controller
     public function accept($id)
     {
         $entry = Inschrijving::find($id);
-        //Get user for notification
+        //Get user
         $userNotify = $entry->user;
-        //Get event for sent notification
+        //Get event voor notificatie
         $event = $entry->event;
         if ($entry->bevestigt == 1) {
 
@@ -176,10 +175,35 @@ class EvetsEntriesController extends Controller
             $entry->bevestigt = 1;
         }
 
-        //if it was saved (true)
+        //saved(true)
         if ($entry->save()){
-            //then it notifies the selected user
+            //notifieer de geselecteerde users
             $userNotify->notify(new UserAcceptNotification($event));
+        }
+        return redirect()->back();
+    }
+
+    public function acceptUsers($id)
+    {
+        //get event
+        $event = Event::find($id);
+        //Get accepted users voor de event
+        $inschrijvings = Inschrijving::where('eventid', $id)->where('bevestigt', 1)->get();
+
+        return view('acceptedUsers', compact('inschrijvings', 'event'));
+    }
+
+    public function fault($id)
+    {
+        //Get the user marked by "not attending"
+        $user = User::find($id);
+        //Get de faults/fouten (hoeveel keer user er niet was)
+        $faults = $user->faults;
+        $faults ++;
+        $user->update(['faults' => $faults]);
+        //2 keer is gebanned
+        if ($user->faults > '1'){
+            $user->update(['banned' => 1]);
         }
         return redirect()->back();
     }

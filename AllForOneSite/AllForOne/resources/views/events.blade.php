@@ -55,6 +55,11 @@
                                         data-original-title="Delete">
                                     <i class="icon glyphicon glyphicon-remove-circle" aria-hidden="true"></i>
                                 </a>
+                                <a href="{{ route('acceptUsers', $org->event['id']) }}" class="btn btn-sm btn-icon btn-pure btn-default"
+                                        data-toggle="tooltip"
+                                        data-original-title="Accept users">
+                                    <i class="icon glyphicon glyphicon-user" aria-hidden="true"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach
