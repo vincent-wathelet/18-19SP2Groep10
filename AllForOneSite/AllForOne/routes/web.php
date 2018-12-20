@@ -26,12 +26,16 @@ Route::get('/allevents/{id}/inschrijving','InschrijvingController@Inschrijven');
 Route::get('/allevents/{id}/uitschrijven','InschrijvingController@Uitschrijven');
 //Route::get('/myeventsentries', 'MyEvetsEntriesController@index')->name('myeventsentries');
 Route::get('/contact', 'contactController@index')->name('contact');
+Route::get('/myRating', 'MyRatingController@index')->name('myrating');
+Route::post('/myRating/addeventreview', 'MyRatingController@addeventrevieuw')->name('eventreview');
+Route::get('/myRating/adduserreview/{idUser}/{eventid}', 'MyRatingController@getUserReview')->name('userreview');
+Route::post('/myRating/adduserreview', 'MyRatingController@adduserrevieuw');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 //Route::get('/MyEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
-
+Route::post('/contact','contactController@SenForm');
 Route::get('/logout','Auth\LogoutController@logout');
 Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
 //Route::get('/myeventsdetail', 'EvetsEntriesController@show')->name('eventsentsdetail');

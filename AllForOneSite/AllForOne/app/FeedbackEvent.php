@@ -22,11 +22,12 @@ class Feedbackevent extends Model
      * @var string
      */
     protected $table = 'feedbackevent';
-
+    public $incrementing = false;
+    public $primaryKey = 'eventId';
     /**
      * @var array
      */
-    protected $fillable = ['titel', 'tekst', 'created_at', 'updated_at'];
+    protected $fillable = ['eventId','userId','titel', 'tekst', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

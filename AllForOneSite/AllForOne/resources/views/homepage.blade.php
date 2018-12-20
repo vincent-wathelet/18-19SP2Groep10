@@ -23,9 +23,11 @@
         <div class="row mt-5">
             <div class="col-lg-12 ">
                 <a class="btn btn-sq-lg btn-success col-md-2 " href="{{asset('myevents')}}"><div></br><div ><i class="fas fa-tasks  fa-5x"></i></div></br><p>My Events</p></div></a>
-                <a class="btn btn-sq-lg btn-primary col-md-2 offset-sm-1" href=""><div></br><div ><i class="far fa-bell fa-5x"></i></div></br><p>Notifications</p></div></a>
-            <a class="btn btn-sq-lg btn-success col-md-2 offset-sm-1" href="{{ route('profile') }}"><div></br><div ><i class="fas fa-user-alt fa-5x"></i></div></br><p>My Account</p></div></a>
-                <a class="btn btn-sq-lg btn-primary col-md-2 offset-sm-1" href="{{asset('admin-dashboard-user')}}"><div></br><div ><i class="fas fa-sliders-h fa-5x"></i></div></br><p>Admin</p></div></a>
+                <a class="btn btn-sq-lg btn-info col-md-2 offset-sm-1" href=""><div></br><div ><i class="far fa-bell fa-5x"></i></div></br><p>Notifications</p></div></a>
+                <a class="btn btn-sq-lg btn-primary col-md-2 offset-sm-1" href="{{ route('profile') }}"><div></br><div ><i class="fas fa-user-alt fa-5x"></i></div></br><p>My Account</p></div></a>
+                @if(Auth::user()->admin == 1)
+                <a class="btn btn-sq-lg btn-dark col-md-2 offset-sm-1" href="{{asset('admin-dashboard-user')}}"><div></br><div ><i class="fas fa-sliders-h fa-5x"></i></div></br><p>Admin</p></div></a>
+                    @endif
             </div>
         </div>
 

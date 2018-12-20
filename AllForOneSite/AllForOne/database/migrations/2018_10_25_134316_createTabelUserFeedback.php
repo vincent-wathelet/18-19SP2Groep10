@@ -16,14 +16,14 @@ class CreateTabelUserFeedback extends Migration
         Schema::create('feedbackuser', function (Blueprint $table) {
             $table->integer('recieverId',false,true);
             $table->integer('senderId',false,true);
-            $table->integer('categroieId',false,true);
+            $table->integer('eventId',false,true);
             $table->integer('starrating',false,true);
             $table->string('titel');
             $table->string('tekst');
             $table->foreign('recieverId')->references('id')->on('users');
             $table->foreign('senderId')->references('id')->on('users');
-            $table->foreign('categroieId')->references('id')->on('categorie');
-            $table->primary(array('recieverId','senderId','categroieId'));
+            $table->foreign('eventId')->references('id')->on('event');
+            $table->primary(array('recieverId','senderId','eventId'));
             $table->timestamps();
         });
     }
@@ -38,7 +38,7 @@ class CreateTabelUserFeedback extends Migration
         Schema::table('feedbackuser', function (Blueprint $table) {
             $table->dropForeign(['recieverId']);
             $table->dropForeign(['senderId']);
-            $table->dropForeign(['categroieId']);
+            $table->dropForeign(['eventId']);
         });
         Schema::dropIfExists('feedbackuser');
     }

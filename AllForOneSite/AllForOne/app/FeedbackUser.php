@@ -25,11 +25,12 @@ class Feedbackuser extends Model
      * @var string
      */
     protected $table = 'feedbackuser';
-
+    public $incrementing = false;
+    public $primaryKey = ['categroieId','recieverId','senderId'];
     /**
      * @var array
      */
-    protected $fillable = ['starrating', 'titel', 'tekst', 'created_at', 'updated_at'];
+    protected $fillable = ['categroieId','recieverId','starrating','senderId', 'titel', 'tekst', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
