@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Userlog extends Migration
+class CreateAssistanceConfirmationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class Userlog extends Migration
      */
     public function up()
     {
-        Schema::create('userlogs', function (Blueprint $table) {
-            $table->integer('userid',false,true);
-            $table->integer('logId',false,true);
+        Schema::create('assistance_confirmation', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('event_id')->unsigned();
+            $table->boolean('attended');
+            $table->boolean('missed');
             $table->timestamps();
             $table->primary(array('userid','logId'));
             $table->foreign('userid')->references('id')->on('users');

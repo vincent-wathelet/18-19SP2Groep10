@@ -26,7 +26,7 @@
                 <hr>
                 <div class="table-responsive">
                     <div class="col-sm-6"><span class="pull-left">Number of subscribers: {{count($entries)}}</span></div>
-                   {{-- <div class="col-sm-6"><span class="pull-right">Still possible subbs: 0</span></div> --}}
+                    <div class="col-sm-6"><span class="pull-right">Still possible subbs: -</span></div>
                     <br>
                     <br>
                     <table class="table table-striped font-size-16">
@@ -34,9 +34,9 @@
                         <tr>
                             {{-- <td>id</td> --}}
                             <td>Name</td>
-                            <td class="text-center">Acountstatus</td>
-                            <td class="text-center">Accept</td>
-                            <td class="text-center">Refuse</td>
+                            <td class="text-center">Account Status</td>
+                            <td class="text-center">Accepted</td>
+                            <td class="text-center">Not Accepted</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -101,10 +101,6 @@
     <script>
         $('[name="inputCheckboxes"]').on('change', function () {
             id = $(this).parent().find('.entryid').html();
-            // $.ajax({
-            //     url: 'myevents',
-            //
-            // })
 
             window.location.href = "{{asset('myevents/accept')}}/" + id;
         })

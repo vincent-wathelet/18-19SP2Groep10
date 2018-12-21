@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class admindashboardController extends Controller
+class SubscribeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,6 @@ class admindashboardController extends Controller
     public function create()
     {
         
-        return view('admindashboard');
     }
 
     /**
@@ -81,5 +80,10 @@ class admindashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function subscribe(Request $request)
+    {
+       print_r("prasth");
+       exit();
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    public $errors = array();
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +19,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
+
 
         return view('profile');
     }
@@ -76,31 +79,90 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        //validate the name is required and email is required, type email and max characters max the 255
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|string|email|max:255',
-            'password' => 'confirmed'
         ]);
 
-        $users = User::find(Auth::User()->id);
-        $users->name = $request->name;    
-        $users->email = $request->email;
-        $password = [];
-        if ($request->get('fieldPass')) {
-            $password['password'] = Hash::make($request->get('password'));
-            $users->update($password);                   
-        }elseif($request->password){   
-            $users->password = Hash::make($request->password);
+        //get the current logged user
+        $user = User::find(Auth::User()->id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        //verify the password if(null) -> no change
+        if (is_null($request->password)) {
+            $user->save();
+            //if not null and the pass equals the current password and the password_confirmation field is not null
+        } else {
+            //check voor de passw van de user
+            if (Hash::check($request->password, Auth::User()->password)) {
+                if (!is_null($request->password_confirmation)) {
+                    //validate the password with 1 letter uppercase 1 letter lowercase and 1 number
+                    if (count($this->strong_password($request->password_confirmation)) === 0) {
+                        // encryptie the password_confirmation field
+                        $user->password = $request->password_confirmation;
+                        // save the data of current user
+                        $user->save();
+                    } else {
+                        return redirect()->back()->withErrors($this->errors);
+                    }
+
+                } else {
+                    // if password_confirmation veld = null
+                    $this->validate($request, [
+                        'name' => 'required',
+                        'email' => 'required|string|email|max:255',
+                        'password' => 'required|string|min:6|max:255',
+                        'password_confirmation' => 'required|string|min:6|max:255',
+                    ]);
+                }
+            } else {
+                // if passw != 1ste passwoord, error
+                return redirect()->back()->with('noMatchPassword', 'The password no match with the current password!');
+            }
         }
-        if($users->save()){
-            return redirect('profile');
+        //Alles ok: save changes and return naar route met als name "profile" met var session "update"
+        return redirect('profile')->with('update', 'The user ' . Auth::User()->name . ' as been update');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  $password
+     * @return array->errors
+     */
+
+     //extra: passwoord versterken
+    function strong_password($password)
+    {
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number = preg_match('@[0-9]@', $password);
+
+        if (!$uppercase) {
+            $this->errors[] = 'The password must contain at least one uppercase character';
         }
+
+        if (!$lowercase) {
+            $this->errors[] = 'The password must contain at least one lowercase character';
+        }
+
+        if (!$number) {
+            $this->errors[] = 'The password must contain at least one number';
+        }
+
+        if (strlen($password) < 6) {
+            $this->errors[] = 'The password must have a minimum of 6 characters';
+        }
+
+        return $this->errors;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Profile  $profile
+     * @param  \App\Profile $profile
      * @return \Illuminate\Http\Response
      */
     public function destroy(Profile $profile)

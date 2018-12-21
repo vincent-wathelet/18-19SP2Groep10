@@ -20,6 +20,7 @@ class Organisatoren extends Model
      *
      * @var string
      */
+    protected $primaryKey = 'eventid';
     protected $table = 'organisatoren';
 
     /**

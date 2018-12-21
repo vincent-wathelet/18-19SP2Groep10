@@ -9,6 +9,8 @@ namespace App\Http\Controllers;
 use App\Categorie;
 use App\Event;
 use App\Inschrijving;
+use App\Notifications\UserSubscribeNotification;
+use App\Notifications\UserUnSubscribeNotification;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
@@ -16,32 +18,50 @@ use Illuminate\Http\Request;
 class AllEventsController extends Controller
 {
 
-    // Subscribe function
     public function subscribe(Request $request)
     {
-        
-        $userid = Auth::user()['id'];                   // Current user ID
-        $eventid =  $request->eventId;
+
+        $user = Auth::user();
+
+        $eventid = $request->eventId;
         $bevestigt = '0';
         $aanwezig = '0';
-        $userEvents = Inschrijving::where(['eventid'=>$eventid,'userid'=>$userid])->get(); // Inschrijving check eventid and userid
+        $userEvents = Inschrijving::where(['eventid' => $eventid, 'userid' => $user->id])->get();
         $action = '';
+        $event = Event::find($eventid);
+        if ($userEvents->count() == 0) {
 
-        if($userEvents->count() == 0){                  // $userEvents check als 0 == 0 to insert data      
             $insert = Inschrijving::insert([
-                'userid' => $userid,
+                'userid' => $user->id,
                 'eventid' => $eventid,
                 'bevestigt' => $bevestigt,
                 'aanwezig' => $aanwezig
             ]);
-          $action = 'insert';                           // Ajax action insert
-        } else{                                         // $userEvents check als 0 != 0 to delete data  
-            $delete = Inschrijving::where('eventid', '=', $eventid)->where('userid', '=', $userid)->delete();
-            $action = 'delete';                         // Ajax action delete
-        }
+            $action = 'insert';
+            $user->notify(new UserSubscribeNotification($event));
+        } else {
 
-        return $action; // Return action
+            $delete = Inschrijving::where('eventid', '=', $eventid)->where('userid', '=', $user->id)->delete();
+            $action = 'delete';
+            $user->notify(new UserUnSubscribeNotification($event));
+
+
+        }
+        return $action;
     }
+
+    /* public function subscribedelete(Request $request)
+    {
+        $userid = '10';
+        $eventid =  $request->eventId;
+        $bevestigt = '0';
+        $aanwezig = '0';
+
+        $delete = Inschrijving::where('eventid', '=', $eventid)->where('userid', '=', $userid)->delete();
+        return redirect('allevents');
+    }   
+ */
+
 
     /**
      * Display a listing of the resource.
@@ -60,23 +80,41 @@ class AllEventsController extends Controller
         $categories = Categorie::all();
         $categoriesArray = [];
 
-        if(!empty($category) && !in_array(0,$category)){            // $category check als not empty and not in_array 
-            $categoriesArray = $category;                   
-        } else{
-           $categoriesArray = $categories->pluck('id')->toArray();  // $category check als empty and in_array
+        if (!empty($category) && !in_array(0, $category)) {
+            $categoriesArray = $category;
+        } else {
+            $categoriesArray = $categories->pluck('id')->toArray();
         }
 
-        foreach ($categoriesArray  as $categoryId){
-            $cateogeryEvents = Event::where('categorieId', '=',  $categoryId)->get();
+        foreach ($categoriesArray as $categoryId) {
+            $cateogeryEvents = Event::where('categorieId', '=', $categoryId)->get();
             $categoriesEvents[$categoryId] = $cateogeryEvents;
         }
-          
-        if(empty($category) || in_array(0,$category)){               // $category check als empty or in_array 
+
+        if (empty($category) || in_array(0, $category)) {
             $categoriesArray = [0];
         }
 
-        $ins = Inschrijving::where('userid', Auth::user()['id'])->get();        
+
+        $ins = Inschrijving::where('userid', Auth::user()->id)->get();
         $userEvents = $ins->pluck('eventid')->toArray();
+
+
+        if ($request->ajax()) {
+            return view("shared.alleventslist", compact('categoriesEvents'))->with('categories', $categories)->with('categoriesArray', $categoriesArray)
+                ->with('userEvents', $userEvents);
+        } else {
+            return view("allevents", compact('categoriesEvents'))->with('categories', $categories)->with('categoriesArray', $categoriesArray)
+                ->with('userEvents', $userEvents);
+        }
+    }
+
+    public function show($id)
+    {
+        $events = Event::Find($id);
+        $inschrijving = $events->inschrijvings();
+
+        return view("event")->with('event', $events)->with('inschrijving', $inschrijving);
 
         if($request->ajax()){
             return view("shared.alleventslist", compact('categoriesEvents'))->with('categories',$categories)->with('categoriesArray',$categoriesArray)
@@ -87,11 +125,11 @@ class AllEventsController extends Controller
         }
     }
 
-    public function show($id)
+    /*public function show($id)
     {
         $events = Event::Find($id);
         $inschrijving = $events->inschrijvings();
 
         return view("event")->with('event',$events)->with('inschrijving',$inschrijving);
-    }
+    }*/
 }

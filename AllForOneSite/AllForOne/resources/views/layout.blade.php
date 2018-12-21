@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
-    <title>AllForOne</title>
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Project</title>
+
     <link rel="apple-touch-icon" href="{{ asset('assets/images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico')}}">
     <!-- Stylesheets -->
@@ -23,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/waves/waves.css')}}">
     
+
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ asset('global/fonts/glyphicons/glyphicons.css')}}">
     <link rel="stylesheet" href="{{ asset('global/fonts/material-design/material-design.min.css')}}">
@@ -30,22 +33,22 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
-	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet"/>
     <link href="{{ asset('css/multiselect.css') }}" rel="stylesheet">
-    
 
-    @yield('css')
 
-    <!--[if lt IE 9]>
+@yield('css')
+
+<!--[if lt IE 9]>
     {{--<script src="{{ asset('global/vendor/html5shiv/html5shiv.min.js')}}"></script>--}}
-    {{--<![endif]-->--}}
-    {{--<!--[if lt IE 10]>--}}
-    {{--<script src="{{ asset('global/vendor/media-match/media.match.min.js')}}"></script>--}}
-    {{--<script src="{{ asset('global/vendor/respond/respond.min.js')}}"></script>--}}
-    {{--<![endif]-->--}}
-    <!-- Scripts -->
+{{--<![endif]-->--}}
+{{--<!--[if lt IE 10]>--}}
+{{--<script src="{{ asset('global/vendor/media-match/media.match.min.js')}}"></script>--}}
+{{--<script src="{{ asset('global/vendor/respond/respond.min.js')}}"></script>--}}
+{{--<![endif]-->--}}
+        <!-- Scripts -->
     <script src="{{ asset('global/vendor/modernizr/modernizr.js')}}"></script>
     <script src="{{ asset('global/vendor/breakpoints/breakpoints.js')}}"></script>
     <script>
@@ -57,7 +60,7 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<nav class="site-navbar navbar navbar-default bg-dark navbar-fixed-top navbar-mega navbar-inverse"
+<nav id="app" class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse"
      role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle hamburger hamburger-close navbar-toggle-left hided"
@@ -88,36 +91,13 @@
             <!-- Navbar Toolbar Right -->
             <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
 
-                <li class="dropdown">
+                <li class="nav-item dropdown">
                     <a class="navbar-avatar dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false"
                        data-animation="scale-up" role="button">
-              <span class="avatar avatar-online">
-                <img src="{{ asset('images/4.jpg')}}" alt="...">
-                <i></i>
-              </span>
+                        <i class="icon md-notifications" aria-hidden="true"></i>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation">
-                        <a href="{{ route('profile')}}" role="menuitem"><i class="icon md-account"
-                                                                            aria-hidden="true"></i> Profile</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i>
-                                Billing</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="javascript:void(0)" role="menuitem"><i class="icon md-settings"
-                                                                            aria-hidden="true"></i> Settings</a>
-                        </li>
-                        <li class="divider" role="presentation"></li>
-                        <li role="presentation">
-                            <a href="{{asset('logout')}}" role="menuitem"><i class="icon md-power"
-                                                                            aria-hidden="true"></i> Logout</a>
-                        </li>
-                    </ul>
+                    <notifications></notifications>
                 </li>
-
-
             </ul>
             <!-- End Navbar Toolbar Right -->
         </div>
@@ -139,7 +119,7 @@
     </div>
 </nav>
 
-<div class="page animsition padding-top-80">
+<div id="app" class="page animsition padding-top-80">
     @yield('content')
 </div>
 <!-- Footer -->
@@ -151,6 +131,7 @@
     </div>
 </footer>
 <!-- Core  -->
+<script src="{{ mix('js/app.js') }}"></script>
 <script src="{{ asset('global/vendor/jquery/jquery.js')}}"></script>
 <script src="{{ asset('global/vendor/bootstrap/bootstrap.js')}}"></script>
 <script src="{{ asset('global/vendor/animsition/animsition.js')}}"></script>

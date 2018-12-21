@@ -40,7 +40,7 @@
                         @foreach($organizations as $org)
                         <tr>
                             <td>{{$org->event['naam']}}</td>
-                            <td>{{date("m/d/Y", strtotime($org->event['begindate']))}}</td>
+                            <td>{{substr($org->event['date'], 0, -9)}}</td>
                             <td>
                                 <span>{{$org->event['lokaal']['lokaal']}}</span>
                             </td>
@@ -59,6 +59,11 @@
                                         data-toggle="tooltip"
                                         data-original-title="Delete">
                                     <i class="icon glyphicon glyphicon-remove-circle" aria-hidden="true"></i>
+                                </a>
+                                <a href="{{ route('acceptUsers', $org->event['id']) }}" class="btn btn-sm btn-icon btn-pure btn-default"
+                                        data-toggle="tooltip"
+                                        data-original-title="Accept users">
+                                    <i class="icon glyphicon glyphicon-user" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

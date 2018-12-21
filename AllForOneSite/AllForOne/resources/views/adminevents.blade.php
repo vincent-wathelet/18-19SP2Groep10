@@ -1,11 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-<!--
-* adminevents.blade.php
-* Author: Abdelali Ez Zyn
-* Last update: 20/12/2018
--->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        
@@ -20,14 +15,14 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Category ID</th>
-                        <th>Lokaal ID</th>
-                        <th>Max Subscriptions</th>
-                        <th>Startdate</th>
-                        <th>Enddate</th>
-                        <th>Autoaccept</th>
+                        <th>Id</th>
+                        <th>Naam</th>
+                        <th>Categorie Id</th>
+                        <th>Lokaal Id</th>
+                        <th>Max Inschrijvingen</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Auto Accept</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -60,7 +55,7 @@
 
                            <td>
                                <a href="edit-events/edit/{{ $admin['id'] }}"> <button class="btn"  >Edit </button></a>
-                               <a href="edit-events/{{ $admin['id'] }}"> <button class="btn"  >Approval </button></a>
+                               <a href="edit-events/{{ $admin['id'] }}"> <button class="btn"  >Redirect </button></a>
                                <a href="edit-events/delete/{{ $admin['id'] }}"><button class="btn">Delete</button></a>
                            </td>
                         </tr>   

@@ -132,63 +132,24 @@ img {
   padding: 10px;
   margin: 0 auto;
   text-align: center;
-  height: auto;
+  height: 212px;
 }
 p {
   margin: 0 0 2px !important;
 }
 .htag{
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .capitalize{
   text-transform: capitalize;
   color: #39364f
 }
-.ptag {
-  font-size: 8px !important;
+.ptag{
+  font-size: 12px !important;
   color: #6f7287;
 }
 .borders{
   padding-bottom: 4%;
   border-bottom: 2px solid #3e51b4;
 }
-
-.select2-dropdown{
-  width: 250px !important;
-}
-
-.custombtn {
-  width: 87%;
-  font-size: 14px;
-  padding: 0px 0;
-}
-
-.hfont {
-  font-size: 18px;
-}
-
-/* image uploaded */
-
-input[type=file]{
-
-  display: inline;
-
-}
-
-#image_preview{
-
-  border: 1px solid black;
-
-  padding: 10px;
-
-}
-
-#image_preview img{
-
-  width: 200px;
-
-  padding: 5px;
-
-}
-

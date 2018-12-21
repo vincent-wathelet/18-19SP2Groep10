@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Startdate: </label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->begindate))}}@endif" name="begindate" id="begindate" placeholder="" required>
+                                        <input class="form-control" value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->date))}}@endif" name="begindate" id="begindate" placeholder="" required>
                                     </div>
                                 </div>
 
@@ -68,7 +68,7 @@
                                     <label class="col-sm-3 control-label">Enddate: </label>
                                     <div class="col-sm-9">
                                         <input class="form-control"
-                                                value="@if (isset($event)) {{date("m/d/Y H:i", strtotime($event->enddate))}}@endif"
+                                               {{--value="@if (isset($event)) {{$event->addtime($event->date, $event->duur)}}@endif"--}}
                                                name="enddate" id="enddate" placeholder=""
                                                 @if (!isset($event))
                                                required

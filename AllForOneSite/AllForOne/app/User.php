@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @property Feedbackevent[] $feedbackevents
@@ -34,7 +35,7 @@ class User extends Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['name', 'email','password', 'admin', 'banned'];
+    protected $fillable = ['name', 'email','password', 'admin', 'banned', 'faults'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -76,5 +77,16 @@ class User extends Authenticatable
     public function organisatorens()
     {
         return $this->hasMany('App\Organisatoren', 'userId');
+    }
+
+    // add mutator for encrypted password for simplicity and not repeat the code Hash::make()
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function Assistances()
+    {
+        return $this->hasMany(AssistenceConfirmation::class);
     }
 }

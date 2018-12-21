@@ -1,19 +1,14 @@
-<!--
-* shared/alleventslist.blade.php
-* Author: Abdelali Ez Zyn
-* Last update: 20/12/2018
--->
 @foreach($categories as $categorie)
 <?php
-if(!array_key_exists($categorie->id,$categoriesEvents)) // Check array value not exit -> doorgaan
+if(!array_key_exists($categorie->id,$categoriesEvents))
         continue;
 ?>         
 <h4>{{$categorie->naam}}</h4>
-@if($categoriesEvents[$categorie->id]->isEmpty())  {{-- category id empty check --}} 
-<p>No events found!</p>
+@if($categoriesEvents[$categorie->id]->isEmpty())
+<p>No events Found</p>
 @else            
 <div class="row borders">
-    @foreach( $categoriesEvents[$categorie->id] as $categoriesEvent)  {{-- category id passed --}}
+    @foreach( $categoriesEvents[$categorie->id] as $categoriesEvent)
     
         <div class="col-md-4">
             <div class="card">

@@ -27,7 +27,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 // toont Show Homepage
 Route::get('/homepage', 'HomepageController@index')->name('homepage');
 
-
+// toont all eventen
+Route::get('/allevents', 'AllEventsController@index')->name('allevents');
+// toont all events post
+Route::post('/allevents', 'AllEventsController@index')->name('allevents');
 
 /* LOGOUT ROUTE */
 
@@ -35,6 +38,8 @@ Route::get('/homepage', 'HomepageController@index')->name('homepage');
 Route::get('logout', 'Auth\LoginController@logout');
 
 
+// toont detail van een event
+Route::get('/allevents/{id}', 'AllEventsController@show')->name('event');
 
 /* INSCHRIJVING Route */
 
@@ -56,10 +61,8 @@ Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
 Route::get('/MyEvents', 'MyEventsController@index')->name('myeventscontroller');
 Route::get('/EventDetails', 'EventDetailsController@index')->name('myeventdetails');
-Route::post('/contact','contactController@SenForm');
-Route::get('/logout','Auth\LogoutController@logout');
-Route::get('/showevent/{id}', 'EventDetailsController@show')->name('showevent');
 
+Route::get('/logout','Auth\LogoutController@logout');
 Route::get('/myeventsentries', 'EvetsEntriesController@detail')->name('eventsentries');
 //Route::get('/myeventsdetail', 'EvetsEntriesController@show')->name('eventsentsdetail');
 Route::get('/myevents', 'EvetsEntriesController@index')->name('myevents');
@@ -69,6 +72,9 @@ Route::get('myevents/delete/{id}', 'EvetsEntriesController@delete');
 Route::get('myevents/edit/{id}', 'EvetsEntriesController@edit');
 Route::get('myevents/show/{id}', 'EvetsEntriesController@show');
 Route::get('myevents/accept/{id}', 'EvetsEntriesController@accept');
+Route::get('myevents/acceptedUsers/{id}', 'EvetsEntriesController@acceptUsers')->name('acceptUsers');
+Route::get('myevents/fault/{id}/{event_id}', 'EvetsEntriesController@fault')->name('fault');
+Route::get('myevents/attended/{id}/{event_id}', 'EvetsEntriesController@attended')->name('attended');
 Route::get('/myEntries', 'MyEntriesController@index')->name('myentries');
 Route::get('myEntries/details/{id}', 'MyEntriesController@details');
 Route::get('myentries/delete/{id}', 'MyEntriesController@delete')->name('deleteentries');
@@ -158,3 +164,6 @@ Route::get('admin-dashboard', 'AdminDashboardController@index')->name('admin-das
 // admin user page
 Route::get('admin-dashboard-user', 'HomeController@check')->name('admin-dashboard-user');
 
+Route::get('/api/notificationsVue', 'manageuserController@notifications');
+Route::get('/api/notifications', 'manageuserController@notificationsBlade')->name('notifications');
+/* Route::get('subscribe', 'SubscribeController@subscribe')->name('subscribe'); */

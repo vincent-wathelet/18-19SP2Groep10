@@ -1,11 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-<!--
-* admindashboard.blade.php
-* Author: Abdelali Ez Zyn
-* Last update: 20/12/2018
--->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        

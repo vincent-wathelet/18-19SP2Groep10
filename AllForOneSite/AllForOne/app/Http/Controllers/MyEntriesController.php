@@ -24,11 +24,14 @@ class MyEntriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
     public function index()
     {
         $entries = Inschrijving::where('userid', Auth::user()->id)->get();
 
         return view('myeventsentries', compact('entries'));
+        //redirect & store entry in array entries
     }
 
     public function details($id)
@@ -44,5 +47,6 @@ class MyEntriesController extends Controller
     public function delete($id) {
         Inschrijving::find($id)->delete();
         return redirect()->back();
+        //redirect
     }
 }

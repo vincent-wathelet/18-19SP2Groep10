@@ -4,11 +4,6 @@
     <link rel="stylesheet" href="{{ asset('global/fonts/font-awesome/font-awesome.css')}}">
 @endsection
 @section('content')
-<!--
-* adminevents.blade.php
-* Author: Abdelali Ez Zyn
-* Last update: 20/12/2018
--->
 <div class="wrapper">
         <!-- Sidebar Holder -->
        
@@ -23,10 +18,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Acountstatus</th>
-                        <th>Accept</th>
-                        <th>Refuse</th>
+                        <th>Naam</th>
+                        <th>acount Status</th>
+                        <th>Accepted</th>
+                        <th>Geweigerd</th>
                     </tr>
                 </thead>
                 <tbody>
