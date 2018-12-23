@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('global/vendor/icheck/icheck.css')}}">

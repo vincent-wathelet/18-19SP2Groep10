@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.min.css')}}">
 @endsection
 
-@section('content');
+@section('content')
 <!--
 * eventdetails.blade.php
 * Author: Abdelali Ez Zyn
@@ -130,27 +130,8 @@
                                         <textarea class="form-control"  value="" name="description" placeholder="" rows="5" required>@if(isset($event)){{$event->description}}@endif</textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Upload image: </label>
-                                    <div class="col-sm-9" style="padding-top: 7%; " >
-                                        <input  type="file" value="" id="eventimage" name="eventimage" requird/>
-                                        
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"></label>
-                                    <div class="col-sm-9" style="padding-top: 2%; margin-bottom: 2%;" >
-                                            <div id="image_preview" style="width:100%;">
 
-                                                    @if (isset($event))
-                                                        <img src="{{ URL::asset('uploadPic/'.$event->eventimage) }}">
-                                                    @else
-                                                        <p>No image found!</p>
-                                                    @endif
 
-                                            </div>
-                                    </div>
-                                </div>    
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button class="btn btn-primary pull-right" type="submit">Save</button>

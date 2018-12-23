@@ -1,5 +1,5 @@
-@extends('layout')
-@section('content');
+@extends('layouts.app')
+@section('content')
 <div class="page-main container">
     {{--<div class="page-header">--}}
     {{--<h1 class="page-title">Two Columns</h1>--}}
@@ -59,7 +59,7 @@
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{asset('showevent/'.$entry->event->id)}}"
+                                    <a href="/allevents/{{$entry->event->id}}"
                                        class="btn btn-sm btn-icon btn-pure btn-default"
                                        data-toggle="tooltip"
                                        data-original-title="Detail">
@@ -91,7 +91,6 @@
                             <td>Name</td>
                             <td>Date</td>
                             <td>Location</td>
-                            <td class="text-center">Review</td>
                             <td class="text-center">Details</td>
                         </tr>
                         </thead>
@@ -104,19 +103,6 @@
                                     <td>{{substr($entry->event->date, 0, -9)}}</td>
                                     <td>
                                         <span>{{$entry->event->lokaal->lokaal}}</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{asset('myentries/review/'.$entry->id)}}"
-                                           class="btn btn-sm btn-icon btn-pure btn-default"
-                                           data-toggle="tooltip"
-                                           data-original-title="Review">
-
-                                            @if($entry->event->feedbackevents->count() > 0)
-                                                <i class="icon glyphicon glyphicon-ok" aria-hidden="true"></i>
-                                            @else
-                                                <i class="icon glyphicon glyphicon-plus" aria-hidden="true"></i>
-                                            @endif
-                                        </a>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{asset('showevent/'.$entry->event->id)}}"

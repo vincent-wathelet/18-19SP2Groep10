@@ -35,7 +35,7 @@ class Event extends Model
     /**
      * @var array
      */
-    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'begindate', 'enddate', 'autoaccept', 'description', 'eventimage', 'hidden', 'created_at', 'updated_at'];
+    protected $fillable = ['categorieId', 'naam', 'lokaalId', 'maxInschrijvingen', 'begindate', 'enddate', 'autoaccept', 'description', 'hidden', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -59,6 +59,13 @@ class Event extends Model
     public function feedbackevents()
     {
         return $this->hasMany('App\Feedbackevent', 'eventId');
+    }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feedbackusers()
+    {
+        return $this->hasMany('App\Feedbackuser', 'eventId');
     }
 
     /**

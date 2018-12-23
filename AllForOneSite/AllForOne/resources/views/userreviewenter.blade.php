@@ -4,13 +4,42 @@
 
 @endsection
 @section('content')
+
+    <script>
+        function updateSlider(slideAmount) {
+            var sliderDiv = document.getElementById("star");
+            if (slideAmount == 1)
+            {
+                sliderDiv.innerHTML =  '<i class="fas fa-star"></i>';
+            }
+            else if (slideAmount == 2)
+            {
+                sliderDiv.innerHTML =  '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            }
+            else if (slideAmount == 3)
+            {
+                sliderDiv.innerHTML =  '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star">';
+            }
+            else if (slideAmount == 4)
+            {
+                sliderDiv.innerHTML =  '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"><i class="fas fa-star">';
+            }
+            else if (slideAmount == 5)
+            {
+                sliderDiv.innerHTML =  '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"><i class="fas fa-star"><i class="fas fa-star">';
+            }else {
+                sliderDiv.innerHTML = slideAmount;
+            }
+        }
+    </script>
     <div class="container mt-5">
         <form action="/myRating/adduserreview" method="post">
             {{ csrf_field() }}
             <h3>Feedback User {{$user->name}}  For Event {{$event->naam}}</h3>
             <div class="form-group">
-                <label for="starrating">StarRating</label>
-                <input type="range" min="1" max="5" class="slick-slider" name="starrating" id="starrating">
+                <label for="starrating">Example Range input</label>
+                <input type="range" min="1" max="5" value="1" class="form-control-range col-md-2" id="starrating" name="starrating" onchange="updateSlider(this.value)">
+                <p class="help-block" id="star" style="color: #f0ad05"><i class="fas fa-star"></i></p>
             </div>
             <div class="form-group">
                 <label for="inputEventTitel">Titel</label>
@@ -21,7 +50,7 @@
                 <label class="control-label" for="inputEventText">Your message</label>
                 <textarea class="form-control" id="inputEventText" name="EventText" placeholder="Please enter your message here..." rows="5"  required></textarea>
             </div>
-            <input name="categorieid" type="hidden" value="{{$event->Categorie()->first()->id}}">
+            <input name="eventid" type="hidden" value="{{$event->id}}">
             <input name="Useridres" type="hidden" value="{{$user->id}}">
             <div class="form-group ">
                 <div class="col-md-11 text-right">
@@ -30,4 +59,5 @@
             </div>
         </form>
     </div>
+
 @endsection

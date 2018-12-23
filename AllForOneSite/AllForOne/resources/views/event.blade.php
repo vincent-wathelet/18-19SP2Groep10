@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mt-5">
-        <div class="row">
+        <div class="row ">
             <div class="col-md-8 ">
                 <h3>{{$event->naam}}</h3>
                 <br>
@@ -11,7 +11,7 @@
                 <br>
                 <p><span class="text-uppercase font-weight-bold"> omschrijving</span> <br>{{$event->description}}</p>
 
-                <form action="/myRating/addeventreview" method="post">
+                <form class="mt-5" action="/myRating/addeventreview" method="post">
                     {{ csrf_field() }}
                     <h3>Feedback Event</h3>
                     <div class="form-group">

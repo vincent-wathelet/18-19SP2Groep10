@@ -1,16 +1,14 @@
-@extends('layout')
+@extends('layouts.app')
 @section('css')
     <link rel="stylesheet" href="{{ asset('global/vendor/icheck/icheck.css')}}">
     <link rel="stylesheet" href="{{ asset('global/vendor/dateimepicker/jquery.datetimepicker.min.css')}}">
 @endsection
 
-@section('content');
-<div class="page-main container">
+@section('content')
+<div class="container">
 
-    <div class="page-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
+    <div class="card mt-5">
+
                     @if (Session('update'))
                         <div class="mt-5 alert alert-success">
                             <strong>{{ Session('update') }}</strong>
@@ -25,7 +23,7 @@
                         </div>
                     @endif
                     <div class="profile-holder">
-                        <div class="profile-people-holder">
+                        <div class="card-header">
                             <div class="profile-name">
                                 <h3>Profile settings</h3>
                                 <p>Update your profile password and notifications settings</p>
@@ -33,7 +31,7 @@
                         </div>
                         <div class="profile-settings-holder">
 
-                            <form class="form-horizontal profile-update" method="POST" action="{{ route('profile') }}">
+                            <form class="form-horizontal profile-update m-5" method="POST" action="{{ route('profile') }}">
                                 {{csrf_field()}}
                                 <div class="form-group clearfix {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <div class="col-sm-12 control-label">
@@ -96,15 +94,14 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-btns clearfix">
+                                <div class="form-btns clearfix mb-5">
                                     <button class="btn btn-primary" type="submit" name="submit">submit</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+
+
     </div>
 </div>
     <style>

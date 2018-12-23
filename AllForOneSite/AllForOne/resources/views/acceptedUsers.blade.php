@@ -1,5 +1,5 @@
-@extends('layout')
-@section('content');
+@extends('layouts.app')
+@section('content')
 <div class="page-main container">
     {{--<div class="page-header">--}}
     {{--<h1 class="page-title">Two Columns</h1>--}}

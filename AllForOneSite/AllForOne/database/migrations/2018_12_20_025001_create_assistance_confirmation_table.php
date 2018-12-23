@@ -16,12 +16,12 @@ class CreateAssistanceConfirmationTable extends Migration
         Schema::create('assistance_confirmation', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('event_id')->unsigned();
+            $table->integer('logId')->unsigned();
             $table->boolean('attended');
             $table->boolean('missed');
             $table->timestamps();
-            $table->primary(array('userid','logId'));
-            $table->foreign('userid')->references('id')->on('users');
+            $table->unique(array('user_id','logId'));
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('logId')->references('id')->on('logs');
 
         });
@@ -35,6 +35,7 @@ class CreateAssistanceConfirmationTable extends Migration
     public function down()
     {
         Schema::table('userlogs', function (Blueprint $table) {
+            $table->dropUnique(array('userid','logId'));
             $table->dropForeign(['userid']);
             $table->dropForeign(['logId']);
         });

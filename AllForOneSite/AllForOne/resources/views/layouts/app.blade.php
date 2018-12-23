@@ -72,11 +72,11 @@
                         <a class="nav-link" href="{{ url('/myRating') }}">Ratings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Notification</a>
+                        <a class="nav-link" href="{{ route('notifications') }}">Notification</a>
                     </li>
                     @if(Auth::user()->admin == 1)
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
+                        <a class="nav-link" href="{{asset('admin-dashboard-user')}}">Admin</a>
                     </li>
                     @endif
                     <li class="nav-item">
@@ -97,7 +97,7 @@
 
                             <ul class="dropdown-menu bg-dark" role="menu">
                                 <li>
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="{{ route('profile') }}">
                                         My acount
                                     </a>
                                     <a class="nav-link" href="{{ url('/logout') }}">

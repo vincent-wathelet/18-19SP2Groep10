@@ -34,11 +34,5 @@ class Categorie extends Model
         return $this->hasMany('App\Event', 'categorieId');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function feedbackusers()
-    {
-        return $this->hasMany('App\Feedbackuser', 'categroieId');
-    }
+
 }

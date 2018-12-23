@@ -25,19 +25,20 @@ class Feedbackuser extends Model
      * @var string
      */
     protected $table = 'feedbackuser';
+
+    public $primaryKey = 'eventId';
     public $incrementing = false;
-    public $primaryKey = ['categroieId','recieverId','senderId'];
     /**
      * @var array
      */
-    protected $fillable = ['categroieId','recieverId','starrating','senderId', 'titel', 'tekst', 'created_at', 'updated_at'];
+    protected $fillable = ['eventId','recieverId','starrating','senderId', 'titel', 'tekst', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categorie()
+    public function event()
     {
-        return $this->belongsTo('App\Categorie', 'categroieId');
+        return $this->belongsTo('App\Event', 'eventId');
     }
 
     /**

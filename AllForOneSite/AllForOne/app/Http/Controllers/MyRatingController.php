@@ -35,7 +35,8 @@ class MyRatingController extends Controller
      }
     public function adduserrevieuw(Request $request)
     {
-        //Feedbackuser::updateOrCreate([]);
-        return $request;
+        Feedbackuser::updateOrCreate(['eventId' => $request['eventid'],'recieverId' => $request['Useridres'],'senderId' => Auth::user()->id],
+                                     ['starrating' => $request['starrating'], 'titel' => $request['EventTitel'], 'tekst' => $request['EventText']]);
+        return redirect('/allevents/'.$request['eventid']);
     }
 }
