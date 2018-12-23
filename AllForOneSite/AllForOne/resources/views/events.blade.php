@@ -1,10 +1,6 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content');
-<!--
-* events.blade.php
-* Author: Abdelali Ez Zyn
-* Last update: 20/12/2018
--->
+
 <div class="page-main container">
     {{--<div class="page-header">--}}
     {{--<h1 class="page-title">Two Columns</h1>--}}

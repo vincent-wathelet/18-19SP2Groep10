@@ -25,7 +25,7 @@ if(!array_key_exists($categorie->id,$categoriesEvents))
                         <div class="col-md-6" style="padding: 0;">
                                 <h6 class="htag capitalize"> {{$categoriesEvent->naam}} </h6>
                                 <p> {{$categoriesEvent->date}}</p>
-                                <h6 class="htag capitalize"> {{$categoriesEvent->lokaal->gebouw}} {{$categoriesEvent->lokaal->lokaal}} </h5>
+                                <h5 class="htag capitalize"> {{$categoriesEvent->lokaal->gebouw}} {{$categoriesEvent->lokaal->lokaal}} </h5>
                                 <p class="ptag"> {{date("D, M d H:i A", strtotime($categoriesEvent->begindate))}}</p> 
                                {{--  <p class="ptag"> {{$categoriesEvent->description}}</p> --}}
                         </div>
