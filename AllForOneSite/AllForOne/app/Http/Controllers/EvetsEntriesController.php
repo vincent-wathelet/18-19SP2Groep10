@@ -59,72 +59,34 @@ class EvetsEntriesController extends Controller
     // All events insert
     public function save($id=null, Request $request)
     {
+        $autoaccept = false;
+        if (isset($request->autoaccept) && $request->autoaccept == 'on') {
+            $autoaccept = true;
+        } else {
+            $autoaccept = false;
+        }
         if ($id) {
             $event = Event::find($id);
+            $event  = Event::updateOrCreate(['id' => $id ],[  'categorieId' =>$request->categorieId, 'naam' =>$request->naam, 'lokaalId' =>$request->lokaalId, 'maxInschrijvingen' =>$request->maxInschrijvingen,
+                                                    'begindate' => date("Y-m-d H:i:s", strtotime($request->begindate)), 'enddate' => date("Y-m-d H:i:s", strtotime($request->enddate)),
+                                                    'autoaccept' => $autoaccept, 'description' =>$request->description, 'hidden' => 0]);
         } else {
-            $event = new Event();
+
+
+
+             Event::Create([ 'categorieId' =>$request->categorieId, 'naam' =>$request->naam, 'lokaalId' =>$request->lokaalId, 'maxInschrijvingen' =>$request->maxInschrijvingen,
+                            'begindate' => date("Y-m-d H:i:s", strtotime($request->begindate)), 'enddate' => date("Y-m-d H:i:s", strtotime($request->enddate)),
+                            'autoaccept' => $autoaccept, 'description' =>$request->description, 'hidden' => 0]);
+            $event = Event::where([ 'categorieId' =>$request->categorieId, 'naam' =>$request->naam, 'lokaalId' =>$request->lokaalId, 'maxInschrijvingen' =>$request->maxInschrijvingen,
+                'begindate' => date("Y-m-d H:i:s", strtotime($request->begindate)), 'enddate' => date("Y-m-d H:i:s", strtotime($request->enddate)),
+                'autoaccept' => $autoaccept, 'description' =>$request->description, 'hidden' => 0])->first();
         }
 
-        // Image upload  function 
 
-        if(isset($request->eventimage)){
-
-            $imageupload = $request->file('eventimage');                   
-            $fileExt = $imageupload->getClientOriginalExtension();       // Accept png, jpg ,gif ,svg    
-            $uploadPath ='uploadPic';                                   // Image store path name
-            $randomFileName = str_random(10).'.'.$fileExt;
-            $imageupload->move($uploadPath, $randomFileName);
-    
-            $event->eventimage = $randomFileName;
-        }
-
-            $event->categorieId = $request->categorieId;
-            $event->naam = $request->naam;
-            $event->lokaalId = $request->lokaalId;
-            $event->begindate = date("Y-m-d H:i:s", strtotime($request->begindate));
-            $event->enddate = date("Y-m-d H:i:s", strtotime($request->enddate));
-            $event->description = $request->description;
-            $event->maxInschrijvingen = $request->maxInschrijvingen;
-            $event->hidden = 0;
-        
-
-
-
-        /* $new_startdate = date("Y-m-d H:i:s", strtotime($event->begindate));
-
-        if (!is_null($event->enddate)) {
-            $new_enddate = date("Y-m-d H:i:s", strtotime($event->enddate));
-
-            $datetime1 = new DateTime($new_startdate);
-            $datetime2 = new DateTime($new_enddate);
-
-            $interval = date_diff($datetime1, $datetime2);
-            $year = $interval->format('%Y');
-            $month = $interval->format('%M');
-            $day = $interval->format('%D');
-            $hour = $interval->format('%H');
-            $min = $interval->format('%I');
-            $sec = $interval->format('%S');
-
-            $res = "00".$year."-".$month."-".$day." ".$hour.":".$min.":".$sec;
-
-            $event->date = $res;
-        }
-
-        $event->date = $new_startdate;
- */
-
-        if (isset($request->autoaccept) && $request->autoaccept == 'on') {
-            $event->autoaccept = true;
-        } else {
-            $event->autoaccept = false;
-        }
-
-        $event->save();
         if (!$id) {
             $organization = new Organisatoren();
         } else {
-            $organization = Organisatoren::find($event->id);
+            $organization = Organisatoren::find($id);
             //Get event
             $event = $organization->event;
             //events
@@ -138,7 +100,7 @@ class EvetsEntriesController extends Controller
         // dd($organization);
         $organization->eventId = $event->id;
         $organization->userId = Auth::User()->id;
-        /*  $organization->naam = $request->naam; */
+        $organization->titel = "Organisator";
         $organization->save();
 
         return redirect('myevents');

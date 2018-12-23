@@ -10,7 +10,7 @@
                 <p>eind datum : {{date('d-M-Y H:i', strtotime($event->enddate))}}</p>
                 <br>
                 <p><span class="text-uppercase font-weight-bold"> omschrijving</span> <br>{{$event->description}}</p>
-
+                @if(!$event->organisatorens()->where('userid', Auth::user()->id)->first() && strtotime($event->enddate) <= time()&& $event->inschrijvings()->where('userid' , Auth::user()->id)->first()->bevestigt == 1 )
                 <form class="mt-5" action="/myRating/addeventreview" method="post">
                     {{ csrf_field() }}
                     <h3>Feedback Event</h3>
@@ -53,6 +53,7 @@
                     </tr>
                 @endforeach
                 </table>
+                @endif
             </div>
             <div class="col-md-4 ">
                 <div class="">
